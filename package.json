@@ -1,18 +1,22 @@
 {
-  "name": "group-project",
+  "name": "QuaranTrain",
   "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
+  "version": "0.0.1",
+  "description": "Get out look for a trainer",
   "keywords": [],
   "dependencies": {
+    "@sailshq/connect-redis": "^3.2.1",
+    "@sailshq/lodash": "^3.10.3",
+    "@sailshq/socket.io-redis": "^5.2.0",
+    "bcryptjs": "^2.4.3",
+    "dateformat": "^4.5.1",
+    "ejs": "^3.1.6",
+    "mysql2": "^2.2.5",
     "sails": "^1.4.0",
     "sails-hook-apianalytics": "^2.0.3",
     "sails-hook-organics": "^2.0.0",
     "sails-hook-orm": "^3.0.1",
-    "sails-hook-sockets": "^2.0.0",
-    "@sailshq/connect-redis": "^3.2.1",
-    "@sailshq/socket.io-redis": "^5.2.0",
-    "@sailshq/lodash": "^3.10.3"
+    "sails-hook-sockets": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "5.16.0",
@@ -33,7 +37,13 @@
     "type": "git",
     "url": "git://github.com/anonymous node/sails user/group-project.git"
   },
-  "author": "anonymous node/sails user",
+  "author": {
+    "Role 1": "Dimitris Mavrokefalos",
+    "Role 2": "Kyriakos Klapsis",
+    "Role 3": "Laurent Garcia",
+    "Role 4": "Michalis Tsoukalas",
+    "Role 5": "Christos Anagnostopoulos"
+  },
   "license": "",
   "engines": {
     "node": "^12.18"
