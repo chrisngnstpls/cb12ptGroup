@@ -1,8 +1,8 @@
 {
-  "name": "test-project-2",
+  "name": "quarantrain",
   "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
+  "version": "0.0.1",
+  "description": "CB12 PT Javascript Group Project",
   "keywords": [],
   "dependencies": {
     "@sailshq/connect-redis": "^3.2.1",
@@ -12,6 +12,7 @@
     "crypto-random-string": "^3.3.1",
     "dateformat": "^4.5.1",
     "ejs": "^3.1.6",
+    "glob": "^7.1.6",
     "grunt": "1.0.4",
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.7",

@@ -8,6 +8,9 @@
  * https://sailsjs.com/docs/concepts/policies
  */
 
+ const isLoggedIn = require("../api/policies/isLoggedIn");
+ const formCheck = require("../api/policies/formCheck")
+
 module.exports.policies = {
 
   /***************************************************************************
@@ -18,5 +21,8 @@ module.exports.policies = {
   ***************************************************************************/
 
   // '*': true,
+  //'account/signup':formCheck,
+  'account/signup2':formCheck,
+  'account/detailsuser':isLoggedIn
 
 };

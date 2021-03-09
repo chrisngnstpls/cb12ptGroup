@@ -1,27 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Form</title>
-</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+    body {
+        font-size: 16px;
+        background: #f9f9f9;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    h2 {
+        text-align: center;
+        text-decoration: underline dotted blanchedalmond;
+    }
+
+    form {
+        width: 300px;
+        background: #fff;
+        padding: 15px 40px 40px;
+        border: 1px solid #ccc;
+        margin: 50px auto 0;
+        border-radius: 5px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px
+    }
+
+    label i {
+        color: #999;
+        font-size: 80%;
+    }
+
+    input,
+    select {
+        border: 1px solid #ccc;
+        padding: 10px;
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 2px;
+    }
+
+    .row {
+        padding-bottom: 10px;
+    }
+
+    .form-inline {
+        border: 1px solid #ccc;
+        padding: 8px 10px 4px;
+        border-radius: 2px;
+    }
+
+    .form-inline label,
+    .form-inline input {
+        display: inline-block;
+        width: auto;
+        padding-right: 15px;
+    }
+
+    .errorText {
+        color: red;
+        font-size: 90%;
+    }
+
+    input[type="submit"] {
+        font-size: 110%;
+        font-weight: 100;
+        background: #006dcc;
+        border-color: #016BC1;
+        box-shadow: 0 3px 0 #0165b6;
+        color: #fff;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background: #0165b6;
+    }
+</style>
+
 <body>
+    <form name="signUpForm" action="" method="POST">
+        <h2>Personal Information</h2>
+        <section class="row">
+            <label>First Name</label>
+            <input type="text" name="fname">
+            <!-- returning default errors inside div.  -->
+            <div class="errorText" id="fnameError"><%=errorList.fnameError%> </div>
+        </section>
+        <section class="row">
+            <label>Last Name</label>
+            <input type="text" name="lname">
+            <div class="errorText" id="lnameError"><%=errorList.lnameError%></div>
+        </section>
+
+        <section class="row">
+            <label>Email Address</label>
+            <input type="text" name="email">
+            <div class="errorText" id="emailError"><%=errorList.emailError%></div>
+        </section>
+
+        <section class="row">
+            <label>Address</label>
+            <input type="text" name="address">
+            <div class="errorText" id="addressError"><%=errorList.addressError%></div>
+        </section>
+
+
+        <section class="row">
+            <label>Password</label>
+            <input type="password" name="password">
+            <div class="errorText" id="passwordError"><%=errorList.passwordError%></div>
+        </section>
+
+        <section class="row">
+            <label>Confirm Password</label>
+            <input type="password" name="confirmPass">
+            <div class="errorText" id="confirmPassError"><%=errorList.confirmPassError%></div>
+        </section>
+
+
+        <section class="row">
+            <input type="submit" value="Register">
+        </section>
+
+    </form>
     <div>
-        <form action='' method="POST" enctype="multipart/form-data">
-            <div class="inputgroup">
-            <input type="text" value="enter a first name" name='fname'></br>
-            <input type="text" value="enter a last name" name='lname'></br>
-            <input type="text" value="address" name='address'></br>
-            <input type="email" value="enter an email" name='email'></br>
-            <input type="password" value="enter a password" name='password'></br>
-            <input type="password" value="confirm password" name='confirmPass'></br>
-            
-            </div>
-            <button type="submit">SUBMIT ZE DATA</button>
-        </form>
-        
+        <!-- Sample general error. Handle accordingly -->
+        <%=errorList.generalError%></br>
     </div>
-    
 </body>
-</html>

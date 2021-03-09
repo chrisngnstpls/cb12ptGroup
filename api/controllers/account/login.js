@@ -23,7 +23,7 @@ module.exports = {
             goOnMr = true;
         } else {
             goOnMr = false;
-            return this.res.view ('pages/account/login', {data:'please enter something'})
+            return this.res.view ('pages/account/login', {data:'please enter ID & pass'})
             
         }
 
@@ -42,15 +42,18 @@ module.exports = {
                 return this.res.view('pages/unauthorized', {data:'not found'})
             
             } else if (user) {
-                
+                let userDetails = await UserDetails.findOne({userId:user.id})
                 if(this.req.method == 'POST' && user) {
                     let match = await bcrypt.compare(inputs.password, user.password)
                     console.log(`db pass ${user.password}, form pass ${inputs.password}` )
                     if (match) {
 
-                        this.req.session.email = inputs.email;
-                        this.req.session.myHash = 123456;
-                        console.log('set session email @ : ' + this.req.session.email);
+                        this.req.session.user_email = user.email;
+                        this.req.session.user_id = user.id
+                        this.req.session.isAdmin = userDetails.isAdmin
+                        this.req.session.isTrainer = userDetails.isTrainer
+                        this.req.session.isCustomer = userDetails.isCustomer
+                        console.log('set session email @ : ' + this.req.session.user_email + 'and user id : ' + this.req.session.user_id);
                         // console.log(this.req.session.hash)
                         return this.res.view('pages/authorized', {data:'welcome user'});
                     } else {

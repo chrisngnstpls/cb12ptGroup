@@ -19,7 +19,6 @@ module.exports = {
         lname: {
             type: 'string',
         },
-
         address : {
             type : 'string'
         },
