@@ -49,7 +49,7 @@ module.exports.datastores = {
     *                                                                          *
     ***************************************************************************/
   adapter: 'sails-mysql',
-  url: 'mysql://raspi:M@ng01@nd@localhost:3306/quarantrain',
+  url: '',
 
   },
 
