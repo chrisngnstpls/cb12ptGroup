@@ -27,6 +27,7 @@ module.exports.routes = {
   'GET /trainers' : {action : 'dev/populatetrainers'},
   '/detailsuser' : {action :'account/detailsuser'},
   'POST /goodbye' : {action : 'account/logout'},
+  'GET /findme' : {action: 'experimental/geolocate'},
 
 
 

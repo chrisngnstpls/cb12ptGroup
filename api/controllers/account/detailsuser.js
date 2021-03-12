@@ -2,6 +2,7 @@ const { strict } = require('assert');
 const crypto = require('crypto-random-string');
 const fs = require('fs')
 const glob = require('glob')
+const sharp = require('sharp')
 
 module.exports = {
     inputs : {
@@ -37,7 +38,8 @@ module.exports = {
             let currentUserDetails = await UserDetails.findOne({userId:postUser.id})
 
 
-            let filename =  await postUser.email+crypto({length:5})+'.jpg'
+            let filename =  await postUser.email+crypto({length:5})+'.jpg';
+            let tempFile = await localPath + '\\' +"_"+filename;
             let imageLocation = await localPath + '\\' + filename
             let updatedUser = await UserDetails.updateOne({userId:postUser.id}).set({bio:bio, address:address, image:imageLocation}) // error check 
             /* 
@@ -52,8 +54,11 @@ module.exports = {
                 saveAs : filename
             }, function (err, uploadedFiles) { 
                 if (err) return res.serverError(err) // error check ??? serverError 
+                
                 if (_.isEmpty(uploadedFiles)) {
+                    // code to run if input is empty
                     console.log('empty field')
+                
                 } else {
                     let lookup = postUser.email;
                     
@@ -75,8 +80,21 @@ module.exports = {
                             }
                         }
                     })
+                    /*
+                    resize function goes here : 
 
-
+                    sharp(imageLocation).resize(150,100).toFile(tempFile, function(err){
+                        console.log(err)
+                    })
+                    fs.unlink(imageLocation, function(err){
+                        if (err){
+                            console.log('error deleting : ' + err)
+                        }
+                    })
+                    fs.rename(imageLocation, tempFile, function(err){
+                        console.log('error resizing : ' + err)
+                    })
+                    */
                 }
             })
             console.log('POST method : ' + method)
