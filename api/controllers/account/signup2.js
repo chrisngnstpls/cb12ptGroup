@@ -1,4 +1,12 @@
 const bcrypt = require('bcryptjs');
+//const { exits } = require('./trainer2');
+
+/**
+ * Questions for pasp
+ * Do we need returns? 
+ * Because that's not how you get returns
+ * Not a single return has been parsed inside this controller (yet it works flawlessly??)
+ */
 
 
 
@@ -24,31 +32,39 @@ module.exports = {
         },
 
     },
-    exits: {
-        success: {
-            viewTemplatePath: 'pages/account/successTemp' // view account/signup.ejs
-        }
-    },
+
 
     fn: async function(inputs) {
-        let res = this.res
-        let req = this.req
-
-
+        let res = this.res;
+        let req = this.req;
+        let checkExisting = await User.findOne({email:inputs.email});
         let pass = inputs.password;
+        const hashedPass = await bcrypt.hash(pass,10);
+        
+        /*
+        Uncomment for debugging purposes 
+        
+        console.log(inputs.email)
+        console.log(hashedPass)
+        console.log('User exists? : ' + checkExisting)
+        */
 
-        await bcrypt.genSalt(10,function(err,salt){
-            bcrypt.hash(pass, salt, async function(err, hash){
-                if(!err){
-                    console.log('writing hash ' + hash)
-                    console.log('image : ' + req.file)
-                    var user = await User.create({firstName:inputs.fname,lastName:inputs.lname, password:hash, email:inputs.email, money:'10'}).fetch()
-                    var userDetails = await UserDetails.create({address:inputs.address, userId:user.id, isCustomer:true, isAdmin:false, isTrainer:false})
-                    
-                }
-            })
-        })
-
-        return {data:'oke'}
+        // Begin by checking if a user with the input email exists. If not continue with the record
+        if(!checkExisting){
+            if(inputs.fname=='Trainer'){
+                var user = await User.create({firstName:inputs.fname,lastName:inputs.lname, password:hashedPass, email:inputs.email, money:'10'}).fetch()
+                var userDetails = await UserDetails.create({address:inputs.address, userId:user.id, isCustomer:true, isAdmin:false, isTrainer:true})
+                res.view('pages/account/successTemp', {data:'Created Trainer'});
+                //console.log('created trainer')
+            } else {
+                var user = await User.create({firstName:inputs.fname,lastName:inputs.lname, password:hashedPass, email:inputs.email, money:'10'}).fetch()
+                var userDetails = await UserDetails.create({address:inputs.address, userId:user.id, isCustomer:true, isAdmin:false, isTrainer:false})
+                //console.log('created customer')
+                res.view('pages/account/successTemp', {data:'Created Customer'});
+            }
+        } else if(checkExisting){ // exit route if user exists
+            //console.log('user already exists')
+            res.view('pages/account/successTemp', {data:'Email exists'});
+        }
     }
 }

@@ -1,18 +1,21 @@
 <script>
     console.log('loaded html')
-    if(!this.req.data) {
+    if (!this.req.data) {
         let data = 'Welcome stranger'
         return data
     }
 </script>
+
 <body>
-<div id='login-form'>
-    <h1><%=data%></h1>
-    <form action="" method="POST">
-        email : <input type="text" name='email'><br>
-        pass : <input type="password" name='password'><br>
-        <button type="submit">Login</button>
-    </form>
-    
-</div>
+    <div id='login-form'>
+        <h1>
+            <%=data%>
+        </h1>
+        <form action="" method="POST">
+            email : <input type="text" name='email'><br>
+            pass : <input type="password" name='password'><br>
+            <button type="submit">Login</button>
+        </form>
+
+    </div>
 </body>

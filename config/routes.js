@@ -26,8 +26,11 @@ module.exports.routes = {
   'GET /signup' : {action : 'account/signup'},
   'GET /trainers' : {action : 'dev/populatetrainers'},
   '/detailsuser' : {action :'account/detailsuser'},
+  'GET /trainers/book/:id': {action: 'account/trainer'},
+  'POST /trainers/book/:id': {action: 'account/trainer2'},
   'POST /goodbye' : {action : 'account/logout'},
-  'GET /findme' : {action: 'experimental/geolocate'},
+  'GET /trainerpage': {action: 'account/trainer'},
+  'POST /trainerpage': {action: 'account/trainer2'}
 
 
 
