@@ -1,0 +1,168 @@
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/style2.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<body>
+    <p>Authenticated user id : <%=req.session.user_id%>
+    </p>
+    <p>Trainer selected from prev. page : <%=req.session.trainer_selected%>
+    </p>
+    <div class="jquery-script-clear"></div>
+    <div class="container">
+        <h1>Trainer's Calendar</h1>
+        <div id="picker"></div>
+        <div>
+            <div class="formselect">
+                <form method="POST">
+
+                    <p>Selected slot:</p>
+                    <input type="text" name="startDate" id="selected-dates">
+                    <p>Select Location:</p>
+
+                    <input list="locationlist" id="location" name="location" />
+
+                    <datalist id="locationlist">
+                        <option value="Center Athens">
+                        <option value="North Suburbs">
+                        <option value="Southside">
+                        <option value="East Coast">
+                        <option value="West Districts">
+                    </datalist>
+                    <input type="hidden" name="isCancelled" value="true">
+                    <div class="errorText" id="error">
+                        <%= errorList.error %>
+                    </div>
+                    <button type="submit" id="bookbtn">Book session</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script type="text/javascript" src="/js/script.js"></script>
+    <script type="text/javascript">
+        (function ($) {
+            $('#picker').markyourcalendar({
+                availability: [
+                    ['9:00', '12:00', '17:00'],
+                    ['9:00', '12:00', '17:00'],
+                    ['11:00', '17:00'],
+                    ['11:00', '17:00'],
+                    ['9:00', '12:00', '17:00'],
+                    ['9:00', '12:00', '17:00'],
+                    ['9:00', '12:00', '17:00']
+
+                ],
+                isMultiple: false,
+                onClick: function (ev, data) {
+                    // data is a list of datetimes
+                    console.log(data);
+                    var html = ``;
+                    $.each(data, function () {
+                        var d = this.split(' ')[0];
+                        var t = this.split(' ')[1];
+                        html += d + " " + t;
+                    });
+                    $('#selected-dates').val(html);
+                },
+                onClickNavigator: function (ev, instance) {
+                    var arr = [
+                        [
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['11:00', '17:00'],
+                            ['11:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00']
+                        ],
+                        [
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['11:00', '17:00'],
+                            ['11:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00']
+                        ],
+                        [
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['11:00', '17:00'],
+                            ['11:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00']
+                        ],
+                        [
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['11:00', '17:00'],
+                            ['11:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00']
+                        ],
+                        [
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['11:00', '17:00'],
+                            ['11:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00']
+                        ],
+                        [
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['11:00', '17:00'],
+                            ['11:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00']
+                        ],
+                        [
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['11:00', '17:00'],
+                            ['11:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00'],
+                            ['9:00', '12:00', '17:00']
+                        ]
+                    ]
+                    
+                    var rn = Math.floor(Math.random() * 10) % 7;
+                    instance.setAvailability(arr[rn]);
+                }
+            });
+        })(jQuery);
+    </script>
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-36251023-1']);
+        _gaq.push(['_setDomainName', 'jqueryscript.net']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+    <script>
+        try {
+            fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' })).then(function (response) {
+                return true;
+            }).catch(function (e) {
+                var carbonScript = document.createElement("script");
+                carbonScript.src = "//cdn.carbonads.com/carbon.js?serve=CK7DKKQU&placement=wwwjqueryscriptnet";
+                carbonScript.id = "_carbonads_js";
+                document.getElementById("carbon-block").appendChild(carbonScript);
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    </script>
