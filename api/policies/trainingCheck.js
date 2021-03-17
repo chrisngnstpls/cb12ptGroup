@@ -24,17 +24,6 @@ module.exports = async function(req, res, proceed) {
    
    console.log('inside policy trainingCheck')
    console.log(startDate, location, trainerId, customerId,endDate)
-   
-//    function calcDate(today) {
-//     today = new Date();
-//     let year = today.getFullYear();
-//     let month = today.getMonth()+1;
-//     let day = today.getDate();
-//     let hour = today.getHours();
-//     let minutes = today.getMinutes();
-//     let datetime = year + "-" + month + "-" + day + " " + hour + ":" + minutes;
-//     return datetime;
-//     }
 
    let errorLog = {};
 

@@ -50,12 +50,8 @@ module.exports = async function(req, res, proceed) {
     }
 
     if (req.session.user_email) {
-        return proceed();
+        return proceed(); 
     } 
-
-    //   if(req.session.user_id && newData != "") {
-    //     return res.view('pages/unauthorized', {data:'You already have a membership. If you wish to edit your membership you can do so in your profile page!'})
-    // }
 
 
     return res.view('pages/unauthorized', {data:'Please login in order to proceed'})

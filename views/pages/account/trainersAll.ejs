@@ -2,61 +2,106 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WTF</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+
+
+    <link rel="stylesheet" href="trainer_list.css">
+
+    <style>
+        body {
+            background: rgb(229, 230, 233)
+        }
+
+        .profile-button {
+            background: #7160F8;
+            box-shadow: none;
+            border: none
+        }
+
+        .profile-button:hover {
+            background: #0a090a
+        }
+
+        .description {
+            text-align: justify;
+        }
+
+        .link {
+            color: white;
+        }
+    </style>
 </head>
-<html>
-<h1>List of Trainers</h1>
 
-<div id="trainers" class="container">
-  <table class="table table-striped">
-    <thead class="thead-light">
-      <th>Id</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Date of birth</th>
-      <th>Address</th>
-      <th>Bio</th>
-      <th colspan="2">Actions</th>
-    </thead>
-    <tbody>
-      <% var bookUrl="book" ; %>
+<body>
+    <% var bookUrl="book" ; %>
         <% for (let i=0; i < data.length; i++) { %>
-          <% var myBook="/trainers/" + bookUrl + "/" + data[i].id; %>
+            <% var myBook="/trainers/" + bookUrl + "/" + data[i].id; %>
 
-            <tr>
-              <td>
-                <%=data[i].id%>
-              </td>
-              <td>
-                <%=data[i].fname%>
-              </td>
-              <td>
-                <%=data[i].lname%>
-              </td>
-              <td>
-                <%if (!data[i].birthdate){ %>
-                  <%data[i].birthdate = 'No date available'%>
-                  <%=data[i].birthdate %>
-                <% } else { %>
-                  <%=new Date(data[i].birthDate).toLocaleString()%>
-                }
-              <% } %>
+                <div class="container rounded bg-white mt-5">
 
-              </td>
-              <td>
-                <%= data[i].address%>
-              </td>
-              <td>
-                <%=data[i].bio%>
-              </td>
-              <td><a href="<%=myBook%>">Book now</a></td>
-            </tr>
-            <% } %>
-    </tbody>
-  </table>
-</div>
+                    <div class="row py-2">
+
+                        <div class="col-sm-6 col-md-4 col-lg-3 mt-2">
+                            <div class="card card-inverse card-info ">
+                                <img class="card-img-top" src="<%=data[i]._imageLocation%>">
+                                <div class="card-block">
+
+                                    <h4 class="card-title text-center">Personal trainer</h4>
+                                    <div class="card-text text-center text-muted">
+                                        Lorem ipsum dolor sit amet.
+                                    </div>
+                                </div>
+
+                                <div class="card-footer d-flex justify-content-between">
+                                    <a href="#" class=""><i class="fab fa-facebook primary-color"></i></a>
+                                    <a href="#" class=""><i class="fab fa-twitter primary-color"></i></a>
+                                    <a href="#" class=""><i class="fab fa-instagram primary-color"></i></a>
+                                    <a href="#" class=""><i class="fab fa-youtube primary-color"></i></a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="p-3 py-5">
+                                <div class="d-flex justify-content-start mb-3">
+                                    <div class="d-flex flex-row align-items-center back"><i
+                                            class="fa fa-long-arrow-left mr-1 mb-1"></i>
+                                        <h5 class="mr-3">
+                                            <%=data[i].fname%>
+                                        </h5>
+                                    </div>
+                                    <h5 class="text-right">
+                                        <%=data[i].lname%>
+                                    </h5>
+                                </div>
+                                <hr>
+                                <div class="text-center mt-5">
+                                    <h6 class="description text-muted">
+                                        <%=data[i].bio%>
+                                    </h6>
+                                </div>
+
+                                <div class="mt-5 text-right">
+                                    <button class="btn btn-primary profile-button" type="button"><a class="link"
+                                            href="<%=myBook%>">Book now</a></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+
+
+</body>
 
 </html>

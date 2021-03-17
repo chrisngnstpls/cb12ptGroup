@@ -21,23 +21,26 @@ module.exports = {
         let trainerList = await UserDetails.find({
             where :{isTrainer:1}        // first query to iterate through
         });
-        console.log(trainerList)
-        
+        //console.log(trainerList)
+        //var locations = await imageLocation.split(GETlocalPath)
+        var GETlocalPath = require('path').resolve(sails.config.appPath, 'assets')
         for (let trainer in trainerList){       // <- begin iteration loop
             let trainerDetails = await User.findOne({id:trainerList[trainer].userId}) 
-            console.log(trainerDetails)
+            //let imageLoc = 
+
+            //console.log(trainerDetails)
             let _localTrainer =new TView(
                     await trainerDetails.id,       // <- Create new object for Trainer view
                     await trainerDetails.firstName,
                     await trainerDetails.lastName, 
                     await trainerDetails.email,
                     await trainerList[trainer].address, 
-                    await trainerList[trainer].image, 
+                    await trainerList[trainer].image.split(GETlocalPath)[1], 
                     await trainerList[trainer].birthDate,
                     await trainerList[trainer].bio
                                                 );
             payload.push(_localTrainer) // and push it to the empty array
-
+            console.log(_localTrainer._imageLocation)
         }
 
         
@@ -50,5 +53,6 @@ module.exports = {
         
         this.res.view('pages/account/trainersAll', {data:payload})
         return {}
+
     }
 }

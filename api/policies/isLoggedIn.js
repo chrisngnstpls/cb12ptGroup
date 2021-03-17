@@ -4,4 +4,5 @@ module.exports = async function(req, res, proceed) {
         return proceed();
     } 
     return res.view('pages/unauthorized', {data:'Please login to view this content'})
-} 
+}
+ 

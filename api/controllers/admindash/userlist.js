@@ -30,7 +30,7 @@ module.exports = {
         `;
         var payload2 = await sails.sendNativeQuery(query2, [1, 2, 3]);
 
-        // Here we select users who are loggedIn and have a membership
+        // Here we select the current user who is loggedIn and has a membership
 
         let userId = this.req.session.user_id;
 

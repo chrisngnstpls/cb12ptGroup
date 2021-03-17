@@ -3,6 +3,8 @@ const { strict } = require('assert');
 const crypto = require('crypto-random-string');
 const fs = require('fs')
 const glob = require('glob')
+const utils = require('../../../application/utilities')
+
 
 module.exports = {
     inputs : {
@@ -19,16 +21,17 @@ module.exports = {
 
 
     fn: async function(inputs) {
-
+        //uploads.single('avatar')
         let req = this.req
         let res = this.res 
         let method = await req.method
-
+        let resizeProfile = utils.imgResize
         /* This controller will check for method type and redirect accordingly. 
             It handles POST/GET 
         */
         if(method ==='POST'){
-            let localPath = require('path').resolve(sails.config.appPath, 'assets/images')
+            
+            let localPath = require('path').resolve(sails.config.appPath, 'assets/images/users')
             
             let bio = inputs.bio
             let bdate = inputs.birthdate
@@ -47,15 +50,16 @@ module.exports = {
                         a: look for similar images in folder => delete similar images
                         
             */
-
             req.file('avatar').upload({
                 dirname:localPath,
                 saveAs : filename
             }, function (err, uploadedFiles) { 
                 if (err) return res.serverError(err) // error check ??? serverError 
+                
                 if (_.isEmpty(uploadedFiles)) {
                     console.log('empty field')
                 } else {
+                    console.log(uploadedFiles)
                     let lookup = postUser.email;
                     
                     let globString = '**/' + lookup + '*.jpg'
@@ -64,7 +68,7 @@ module.exports = {
                         
                         for (let file of files){
                             
-                            let localFilename = file.split('images/')
+                            let localFilename = file.split('images/users/')
                             console.log(filename, file, localFilename[1])
                             
                             if(filename !== localFilename[1] ){
@@ -77,7 +81,7 @@ module.exports = {
                         }
                     })
 
-
+                    resizeProfile(filename,localPath)
                 }
             })
             console.log('POST method : ' + method)
@@ -135,3 +139,4 @@ module.exports = {
         //return {data:method}
     }
 }
+

@@ -19,7 +19,8 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': { view: 'pages/homepage' }, // ?? whatever
+  '/': { view: 'pages/homepage2' }, 
+  '/categories': { view: 'pages/categories' }, 
   // signup section 
   'GET /signup' : {action : 'account/signup'},
   'POST /signup': { action: 'account/signup2'},
