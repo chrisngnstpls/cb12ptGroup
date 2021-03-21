@@ -1,0 +1,180 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+    crossorigin="anonymous"></script>
+<style>
+    .table {
+        padding-top: 20px;
+        padding: 5px 10px;
+        border: 1px double #000;
+        background-color: #eee;
+        width: 80%;
+    }
+
+    span {
+        padding: 0 8px;
+    }
+
+    h3 {
+        padding-bottom: 20px 0;
+    }
+
+    .fields {
+        display: flex;
+        padding: 10px;
+    }
+
+    .lab {
+        margin-right: 10px;
+    }
+
+    #btn {
+        margin-left: 10px;
+    }
+
+    .container1 {
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+    .form1 {
+        display: block;
+        width: 50%;
+        margin: auto;
+        text-align: center;
+    }
+
+    .megawrap {
+        margin: 0 auto;
+        padding: 30px;
+        width: 80%;
+        border: 1px solid #000;
+    }
+</style>
+<div class="megawrap">
+    <div class="container1">
+        <h1>Admin Dashboard</h1>
+        <h4>Select a query! You do not have to fill in all fields to get the result.</h4>
+        <!-- start of form -->
+        <form method="POST" class="row g-3 form1">
+            <div class="col-auto">
+                <label for="usertype">Select</label>
+                <select class="form-select" id="usertype" name="usertype" aria-label="Default select example">
+                    <option value="">Open this select menu</option>
+                    <option value="Customers">Customers</option>
+                    <option value="Trainers">Trainers</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <label for="userprop">that have</label>
+                <select class="form-select" id="userprop" name="userprop" aria-label="Default select example">
+                    <option value="">Open this select menu</option>
+                    <option value="Training">Training</option>
+                    <option value="Membership">Membership</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <label for="userprop2">and is</label>
+                <select class="form-select" id="userprop2" name="userprop2" aria-label="Default select example">
+                    <option value="">Open this select menu</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-1">Find</button>
+            </div>
+        </form>
+    </div>
+    <!-- end of form -->
+
+    <!-- <form method="POST">
+
+    <div class="fields">
+        <label class="lab" for="usertype">Select</label>
+        <select id="usertype" name="usertype">
+            <option value="">Type of user</option>
+            <option value="Customers">Customers</option>
+            <option value="Trainers">Trainers</option>
+        </select>
+    </div>
+    <div class="fields">
+        <label class="lab" for="userprop">that have</label>
+        <select id="userlist2" id="userprop" name="userprop">
+            <option value="">Type of property</option>
+            <option value="Training">Training</option>
+            <option value="Membership">Membership</option>
+        </select>
+    </div>
+    <div class="fields">
+        <label class="lab" for="userprop2">and is</label>
+        <select id="userlist3" id="userprop2" name="userprop2">
+            <option value="">extra field</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+    </div>
+    <button id="btn" type="submit">Find</button>
+</form> -->
+    <br><br>
+    <h1>create s query where one can see the COUNT of Trainings per user</h1>
+    <h2>Complex Query</h2>
+    <h3>Select all users who have a membership and a training</h3>
+    <% let elements2=JSON.parse(data2) %>
+        <% for(let i=0; i < elements2.rows.length; i++) { %>
+            <div class="table">
+                <span>Firstname:</span>
+                <span>
+                    <%= elements2.rows[i].firstName %>
+                </span>
+                <span>Lastname:</span>
+                <span>
+                    <%= elements2.rows[i].lastName %>
+                </span>
+                <span>Email:</span>
+                <span>
+                    <%= elements2.rows[i].email %>
+                </span>
+            </div>
+            <% } %>
+                <h2>Simple Query</h2>
+                <h3>Select all users who have the money field = 10</h3>
+                <% let elements1=JSON.parse(data1) %>
+                    <% for(let i=0; i < elements1.rows.length; i ++) { %>
+                        <div class="table">
+                            <span>Firstname:</span>
+                            <span>
+                                <%= elements1.rows[i].firstName %>
+                            </span>
+                            <span>Lastname:</span>
+                            <span>
+                                <%= elements1.rows[i].lastName %>
+                            </span>
+                            <span>Email:</span>
+                            <span>
+                                <%= elements1.rows[i].email %>
+                            </span>
+                        </div>
+                        <% } %>
+
+                            <h2>Third Query</h2>
+                            <h3>Select user who is currently loggedIn and has a membership</h3>
+                            <% let elements3=JSON.parse(data3) %>
+                                <% for(let i=0; i < elements3.rows.length; i ++) { %>
+                                    <div class="table">
+                                        <span>ID:</span>
+                                        <span>
+                                            <%= elements3.rows[i].id %>
+                                        </span>
+                                        <span>Lastname:</span>
+                                        <span>
+                                            <%= elements3.rows[i].lastName %>
+                                        </span>
+                                        <span>Email:</span>
+                                        <span>
+                                            <%= elements3.rows[i].email %>
+                                        </span>
+                                    </div>
+                                    <% } %>
+
+</div>

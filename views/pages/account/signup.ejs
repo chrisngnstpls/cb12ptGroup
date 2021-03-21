@@ -1,0 +1,205 @@
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+    body {
+        font-size: 16px;
+        background: #f9f9f9;
+        font-family: 'Montserrat', sans-serif;
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)),
+            url('/images/iStock-1213615970.jpg');
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        position: relative;
+    }
+
+    h2 {
+        text-align: center;
+        text-decoration: underline dotted blanchedalmond;
+    }
+
+    .signupcontainer {
+        padding-top: 140px;
+
+    }
+
+    .navbar-custom {
+        background-color: black;
+        height: 8rem;
+        font-family: 'Russo One', sans-serif;
+    }
+
+    form {
+        width: 480px;
+        background: #fff;
+        padding: 15px 40px 40px;
+        border: 1px solid #ccc;
+        margin: 50px auto 0;
+        border-radius: 5px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px
+    }
+
+    label i {
+        color: #999;
+        font-size: 80%;
+    }
+
+    input,
+    select {
+        border: 1px solid #ccc;
+        padding: 10px;
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 2px;
+    }
+
+    .row {
+        padding-bottom: 10px;
+    }
+
+    .form-inline {
+        border: 1px solid #ccc;
+        padding: 8px 10px 4px;
+        border-radius: 2px;
+    }
+
+    .form-inline label,
+    .form-inline input {
+        display: inline-block;
+        width: auto;
+        padding-right: 15px;
+    }
+
+    .errorText {
+        color: red;
+        font-size: 90%;
+    }
+
+    input[type="submit"] {
+        font-size: 110%;
+        font-weight: 100;
+        background: #006dcc;
+        border-color: #016BC1;
+        box-shadow: 0 3px 0 #0165b6;
+        color: #fff;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background: #0165b6;
+    }
+</style>
+
+<body>
+    <!-- header -->
+    <header id="header">
+        <nav class="navbar navbar-expand-lg navbar-custom ">
+            <div class="container-fluid">
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-3">
+                        <li class="nav-item">
+                            <a class="nav-link active text-white" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/trainers">Trainers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/memberships">Memberships</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="m-3 text-right">
+                    <img src="/images/user.png" alt="user" width="30rem">
+                </div>
+                <div class="m-3 text-right text-white">
+                    <a href="/login" class="nav-link text-white">Log in</a>
+                </div>
+                <div class="m-3 text-right text-white"></div>
+                <a href="/signup" class="nav-link text-white"> Sign up</a>
+            </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--end of header  -->
+    <div class="signupcontainer">
+        <form name="signUpForm" action="" method="POST">
+            <h2>Personal Information</h2>
+            <section class="row">
+                <label>First Name</label>
+                <input type="text" name="fname">
+                <!-- returning default errors inside div.  -->
+                <div class="errorText" id="fnameError">
+                    <%=errorList.fnameError%>
+                </div>
+            </section>
+            <section class="row">
+                <label>Last Name</label>
+                <input type="text" name="lname">
+                <div class="errorText" id="lnameError">
+                    <%=errorList.lnameError%>
+                </div>
+            </section>
+
+            <section class="row">
+                <label>Email Address</label>
+                <input type="text" name="email">
+                <div class="errorText" id="emailError">
+                    <%=errorList.emailError%>
+                </div>
+            </section>
+
+            <section class="row">
+                <label>Address</label>
+                <input type="text" name="address">
+                <div class="errorText" id="addressError">
+                    <%=errorList.addressError%>
+                </div>
+            </section>
+
+
+            <section class="row">
+                <label>Password</label>
+                <input type="password" name="password">
+                <div class="errorText" id="passwordError">
+                    <%=errorList.passwordError%>
+                </div>
+            </section>
+
+            <section class="row">
+                <label>Confirm Password</label>
+                <input type="password" name="confirmPass">
+                <div class="errorText" id="confirmPassError">
+                    <%=errorList.confirmPassError%>
+                </div>
+            </section>
+
+
+            <section class="row">
+                <input type="submit" value="Register">
+            </section>
+
+        </form>
+    </div>
+    <div>
+        <!-- Sample general error. Handle accordingly -->
+        <%=errorList.generalError%></br>
+    </div>
+</body>
