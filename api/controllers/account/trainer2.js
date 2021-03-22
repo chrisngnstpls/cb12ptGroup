@@ -45,7 +45,7 @@ module.exports = {
         console.log(this.req.body)
         let body = this.req.body
         //let _booking = new Booking(body.location, body.startDate, session.trainer_selected, session.user_id,body.isCancelled) //<- initialize a new booking object
-        let _booking = new Booking(body.location, body.startDate, session.trainer_selected, session.user_id)
+        let _booking = new Booking(body.location, body.startDate, session.trainer_selected, session.user.id)
         
         //uncomment for debug 
 
