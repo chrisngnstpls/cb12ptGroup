@@ -199,7 +199,10 @@
                                 <tbody>
                                     <% let cancelUrl='cancel' %>
                                         <% for(let i=0; i < payloadFuture.length; i++) { %>
-                                            <% var cancelTraining="/trainings/" + cancelUrl + "/" + payloadFuture[i].id;
+                                            <%  let localId = Number(parseInt(payloadFuture[i].id) + 1)
+                                                var cancelTraining ='/trainings/cancel/'
+                                                console.log(localId, typeof(localId))
+                                            
                                                 %>
 
 
@@ -243,7 +246,7 @@
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-dismiss="modal">Close</button>
                                                                 <button class="btn btn-danger"
-                                                                    onclick="deleteTraining('<%=url%>' + '/trainings' + '/cancel/' + '<%=payloadFuture[i].id%>')">Yes
+                                                                    onclick="deleteTraining('<%=url%>' +'<%=cancelTraining%>' + '<%=localId%>')">Yes
                                                                     Cancel</button>
                                                             </div>
                                                         </div>
