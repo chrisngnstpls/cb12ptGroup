@@ -49,8 +49,7 @@ module.exports = {
             let fname = inputs.fname
             let lname = inputs.lname
             let email = inputs.email
-            let emptyField
-            let postUser = await User.findOne({email:req.session.user_email}) // error check // session.email
+            let postUser = await User.findOne({email:req.session.user.email}) // error check // session.email
             let currentUserDetails = await UserDetails.findOne({userId:postUser.id})
             let someOldImage = currentUserDetails.image
 
@@ -104,8 +103,8 @@ module.exports = {
                 }
             })
 
-
-            return this.res.view('pages/account/successTemp', {data:'Success!'})
+            return res.successAction('Update success.', {where:'inside details user POST'},'/detailsuser')
+            //return this.res.view('pages/account/successTemp', {data:'Success!'})
             
         } else if(method==='GET'){
             let res = this.res

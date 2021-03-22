@@ -91,7 +91,7 @@
     .btn1 {
         z-index: 6;
         cursor: pointer;
-        background-color: rgba(24, 181, 152, 1);
+        background-color: rgb(255, 136, 0);
         margin: 0 auto;
         position: relative;
         top: 135px;
@@ -118,15 +118,14 @@
         <div class="outer">
             <div class="content">
                 <!-- <span class="bg animated fadeInDown">EXCLUSIVE</span> -->
-                <h2> Success! <br>
+                <h2> Error! <br>
                 </h2>
                 <p class="msg">
                     <%= data%>
                 </p>
             </div>
-            <!-- <a href="/detailsuser"><button class="btn1">Visit my page</button></a> -->
             <a href="<%=redirectTo%>"><button class="btn1">Continue</button></a>
-            <img src="/images/success2.jpg" width="530px" class="animated fadeInRight">
+            <img src="/images/fail.jpg" width="530px" class="animated fadeInRight">
         </div>
     </div>
 </body>

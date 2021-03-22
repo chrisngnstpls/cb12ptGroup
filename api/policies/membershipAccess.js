@@ -18,7 +18,9 @@ module.exports = async function(req, res, proceed,next) {
      * it returns an array of results in the form [boolean, int].
      * 
      * i'm leaving it here and you can complete the routing to the correct pages. 
+     * 
     */
+
     let currentUser = req.session.user;
     console.log('inside membershipAccess', currentUser)
     if(!req.session.user){
@@ -28,16 +30,19 @@ module.exports = async function(req, res, proceed,next) {
     
     if(!req.session.user.hasActiveMembership){
         console.log('user exists but no membership')
-        // await utils.updateMembership(req)
-        // return res.view('pages/account/successTemp', {data:'User just Subscribed'})
 
         return proceed();
+    }
+    if(req.session.user.membershipName == req.body.name){
+        //return res.view('pages/account/successTemp', {data:`You are already subscribed with membersip ${req.body.name}`})
+        return res.permissions(`You are already subscribed with membersip ${req.body.name}`,{where:'membership update policy'},'/detailsuser')
     }
     
     if(req.session.user.hasActiveMembership){
         console.log('user exists, is active, updating with new membership')
         await utils.updateMembership(req,next)
-        return res.view('pages/account/successTemp', {data:'User has upgraded the membership'})
+        return res.successAction(`Membership upgraded to ${req.body.name}!`, {where:'membership update policy'},'/detailsuser')
+        //return res.view('pages/account/successTemp', {data:`You have upgraded to membership ${req.body.name}`})
     }
 
 } 

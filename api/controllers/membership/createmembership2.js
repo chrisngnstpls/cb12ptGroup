@@ -36,8 +36,8 @@ module.exports = {
         //     membershipId: membership.id
         // }).fetch()
 
-        res.view('pages/account/successTemp', {data: "New membership was created"})
+        return res.successAction('Membership created!', {where:'new membership'},'/trainers')
 
-        return {}
+
     }
 }

@@ -22,11 +22,11 @@ module.exports = {
         //     type: 'number'
         // }
     },
-    exits: {
-        success: {
-            viewTemplatePath: 'pages/account/successTemp' // exit view to membership submission form
-        }
-    },
+    // exits: {
+    //     success: {
+    //         viewTemplatePath: 'pages/account/successTemp' // exit view to membership submission form
+    //     }
+    // },
     fn: async function(inputs) {
         let res = this.res;
         let req = this.req;    
@@ -67,7 +67,7 @@ module.exports = {
         console.log(_newMembership);
 
 
-        
-        return {data: "Success!!! New membership created!"}
+        return res.successAction('Membership created!', {where:'new membership'},'/trainers')
+        //return {data: "Success!!! New membership created!"}
     }
 }

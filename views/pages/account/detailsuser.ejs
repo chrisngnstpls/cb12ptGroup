@@ -144,19 +144,13 @@
                             </div>
                         </form>
                         <!-- <hr> -->
-                        <!-- <form action="" method="POST">
-                            <div class="col d-flex align-items-end flex-column">
-                                <h5 class="mb-1">Membership type:</h5>
-                                <p class="text-muted"><%=membershipName%></p>
-                                <button class="btn btn-warning text-white ml-2">Upgrade</button>
-                            </div>
-                        </form> -->
-
 
                         <!-- Button trigger modal -->
                         <div class="col d-flex align-items-end flex-column">
                             <h5 class="mb-1">Membership type:</h5>
-                            <p class="text-muted"><%=membershipName%></p>
+                            <p class="text-muted">
+                                <%=membershipName%>
+                            </p>
                             <button type="button" class="btn btn-warning text-white ml-2" data-toggle="modal"
                                 data-target="#exampleModal">Upgrade</button>
                         </div>
@@ -190,9 +184,6 @@
                         <br><br>
 
                         <!-- End of Modal Section -->
-                        <!-- <button class="btn btn-danger ml-2">cancel</button> -->
-                        <!-- @christos this part is completely static as there is not any Query
-                        sending and/or receiving data. Needs further implementation -->
                         <hr>
                         <div class="col">
                             <h5 class="mb-1">Upcoming Trainings:</h5>
@@ -206,25 +197,63 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% let cancelUrl = 'cancel' %>
-                                    <% for(let i=0; i < payloadFuture.length; i++) { %>
-                                        <%
-                    
-                                            var cancelTraining = "/trainings/" + cancelUrl + "/" + payloadFuture[i].id;
-                                        %>
+                                    <% let cancelUrl='cancel' %>
+                                        <% for(let i=0; i < payloadFuture.length; i++) { %>
+                                            <% var cancelTraining="/trainings/" + cancelUrl + "/" + payloadFuture[i].id;
+                                                %>
 
 
-                                        <tr>
-                                            <th scope="row">
-                                                <%= payloadFuture[i].startDate %>
-                                            </th>
-                                            <td>
-                                                <%= payloadFuture[i].firstName %>
-                                                    <%= payloadFuture[i].lastName %>
-                                            </td>
-                                            <td><button class="btn btn-danger" onclick="deleteTraining('<%=url%>' + '/trainings' + '/cancel/' + '<%=payloadFuture[i].id%>')">Cancel</button></td>
-                                        </tr>
-                                        <% } %>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <%= payloadFuture[i].startDate %>
+                                                    </th>
+                                                    <td>
+                                                        <%= payloadFuture[i].firstName %>
+                                                            <%= payloadFuture[i].lastName %>
+                                                    </td>
+                                                    <td>
+                                                        <!-- Button trigger modal -->
+                                                        <!-- <div class="col d-flex align-items-end flex-column"> -->
+                                                        <button type="button" class="btn btn-danger text-white ml-2"
+                                                            data-toggle="modal"
+                                                            data-target="#exampleModal2">Cancel</button>
+                                                        <!-- </div> -->
+                                                        <!-- Button trigger modal -->
+                                                    </td>
+                                                </tr>
+                                                <!-- Modal 2 -->
+                                                <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Cancel
+                                                                    Training
+                                                                </h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                You are about to cancel this training!
+                                                                Are you sure you want to proceed?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Close</button>
+                                                                <button class="btn btn-danger"
+                                                                    onclick="deleteTraining('<%=url%>' + '/trainings' + '/cancel/' + '<%=payloadFuture[i].id%>')">Yes
+                                                                    Cancel</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <br><br>
+
+                                                <!-- End of Modal 2 Section -->
+                                                <% } %>
                                 </tbody>
                             </table>
                         </div>
@@ -264,14 +293,12 @@
             </div>
         </div>
     </div>
+
     <script>
-    function deleteTraining(url){
-      var dialog = confirm("Are you sure you want to delete the specific training?");
-      if (dialog){
-        window.location.replace(url);
-      } else { 
-        alert ("Not deleting!");
-      }
-    }
+        function deleteTraining(url) {
+
+            window.location.replace(url);
+
+        }
     </script>
 </section>

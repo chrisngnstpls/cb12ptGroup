@@ -48,6 +48,7 @@
     </p> -->
 
 <!-- menu bar -->
+
 <header id="header">
     <nav class="navbar navbar-expand-lg navbar-custom ">
         <div class="container-fluid">
@@ -71,8 +72,9 @@
                     </li>
                 </ul>
             </div>
-            <div class="m-3 text-right">
-                <img src="/images/user.png" alt="user" width="30rem">
+            <div class="m-3 text-right myacc">
+                <a class="account" href="/detailsuser">My Account <img src="/images/user.png" alt="user"
+                        width="30rem"></a>
             </div>
 
         </div>
@@ -141,14 +143,28 @@
                     <option value="West Districts">West Districts</option>
                 </select>
                 <input type="hidden" name="isCancelled" value="true">
-                <div class="errorText" id="error">
-                    <%= errorList.error %>
-                </div>
-                <button type="submit" id="bookbtn">Book session</button>
+                <!-- error popup message -->
+                <% if(errorList.error) { %>
+                    <div class="container mt-2">
+                        <div class="alert alert-danger" role="alert">
+                            <h5 class="alert-heading">
+                                <%=errorList.error%>
+                            </h5>
+                            <p class="mb-0 errorText" id="error">
+                            </p>
+                        </div>
+                    </div>
+                    <% } %>
+                        <!-- end of error popup message -->
+                        <button type="submit" id="bookbtn">Book session</button>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script type="text/javascript" src="/js/script.js"></script>

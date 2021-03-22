@@ -24,11 +24,11 @@ module.exports = {
             type: 'boolean'
         }
     },
-    exits: {
-        success: {
-            viewTemplatePath: 'pages/account/successTemp' // default exit view to signup form
-        }
-    },
+    // exits: {
+    //     success: {
+    //         viewTemplatePath: 'pages/account/successTemp' // default exit view to signup form
+    //     }
+    // },
 
     fn: async function(inputs) {
         /* //uncomment for debugging
@@ -64,6 +64,7 @@ module.exports = {
             
         })
         
-        return {data:'new training created', trainerObject : ""}
+        //return {data:'new training created', trainerObject : ""}
+        return this.res.successAction(`Success! new training created at ${_booking.startDate}`, {where:'inside trainer2'},'/detailsuser')
     }
 }

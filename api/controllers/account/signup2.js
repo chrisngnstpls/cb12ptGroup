@@ -54,7 +54,8 @@ module.exports = {
             if(inputs.fname=='Trainer'){
                 var user = await User.create({firstName:inputs.fname,lastName:inputs.lname, password:hashedPass, email:inputs.email, money:'10'}).fetch()
                 var userDetails = await UserDetails.create({address:inputs.address, userId:user.id, isCustomer:true, isAdmin:false, isTrainer:true})
-                res.view('pages/account/successTemp', {data:'Created Trainer'});
+                //res.view('pages/account/successTemp', {data:'Created Trainer'});
+                return res.successAction('Trainer created.', {where:'inside signup'},'/login')
                 //console.log('created trainer')
             } else {
                 var user = await User.create({firstName:inputs.fname,lastName:inputs.lname, password:hashedPass, email:inputs.email, money:'10'}).fetch()
@@ -66,7 +67,7 @@ module.exports = {
             }
         } else if(checkExisting){ // exit route if user exists
             //console.log('user already exists')
-            res.view('pages/account/successTemp', {data:'Email exists'});
+            return res.permissions('User already exists', {when:'inside signup'},'/login')
             // res.view('pages/account/login', {data: 'Please Login'})
         }
     }

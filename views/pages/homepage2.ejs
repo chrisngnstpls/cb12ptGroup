@@ -180,11 +180,12 @@
                         </li>
                     </ul>
                 </div>
-                <% if(this.req.session.user_email) { %>
+                <% if(req.session.user) { %>
                     <div class="m-3 text-right myacc">
                         <a class="account" href="/detailsuser">My Account <img src="/images/user.png" alt="user"
                                 width="30rem"></a>
                     </div>
+                    <p>hello <%=req.session.user.fname%> !</p>
                     <% } else { %>
                         <div class="m-3 text-right text-white">
                             <a href="/login" class="nav-link text-white">Log in</a>

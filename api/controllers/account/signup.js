@@ -18,7 +18,8 @@ module.exports = {
        let session = this.req.session
        
        if(session.user){
-            return res.view('pages/authorized',{data:'You are already signed up...'})
+            //return res.view('pages/authorized',{data:'You are already signed up...'})
+            return res.permissions('Sign out and sign up again', {when:'inside signup'},'/')
        }else if(!session.user) {
         let error = {generalError:'', fnameError:'', lnameError:'', addressError:'', passwordError:'', confirmPasswordError:'', emailError:''}
         return res.view('pages/account/signup', {errorList:error})

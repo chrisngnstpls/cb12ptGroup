@@ -10,9 +10,10 @@ module.exports = {
          let deletedTraining = await Training.updateOne({id:id}).set({isCancelled:1})
          
          if(deletedTraining){
-            this.res.view('pages/authorized',{data:'Training Deleted'}) 
+            return this.res.successAction('Training deleted.', {where:'inside delete training'},'/detailsuser')
          } else {
-            this.res.view('pages/authorized',{data:'Training Not Deleted'})
+            return this.res.permissions('Training not deleted',{where:'inside delete training'},'/detailsuser')
          }
      }
  }
+ 

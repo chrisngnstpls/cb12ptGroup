@@ -24,7 +24,8 @@ module.exports = {
             goOnMr = true;
         } else {
             goOnMr = false;
-            return this.res.view ('pages/account/login', {data:'please enter ID & pass'});
+            //return this.res.view ('pages/account/login', {data:'please enter ID & pass'});
+            return this.res.permissions('Please enter all fields', {when:'inside login'},'/login')
             
         }
 
@@ -40,7 +41,8 @@ module.exports = {
 
             if(!user){
                 console.log('User not found');
-                return this.res.view('pages/unauthorized', {data:'not found'})
+                // return this.res.view('pages/unauthorized', {data:'not found'})
+                return this.res.permissions('There was an error with your data', {when:'inside login'},'/login')
             
             } else if (user) {
                 
@@ -72,19 +74,23 @@ module.exports = {
                             
                             let membList = [];
                             let membId = [];
+                            let lastStartDate =[];
                             //create an array of past memberships
                             for (let result in results){
                                 let compare = results[result].endDate;
                                 let membIdTemp = results[result].id
+                                let startDate = results[result].startDate
                                 membList.push(compare);
                                 membId.push(membIdTemp);
+                                lastStartDate.push(startDate);
                             }
                             //get the last ending date of the subscription
                             let lastDate = membList.pop();
                             let lastId = membId.pop();
+                            let _lastStartDate = lastStartDate.pop();
                             session.user.lastMembershipId = lastId;
                             const [isActive, days] = checkSub(todayIs, lastDate)
-                            
+                            //let allTrainings = await Training.find({customerId:this.req.session.user.id, isCancelled:0})
                             if(isActive){ // case where the user has an active subscription and has X days left
                                 this.req.session.user.hasActiveMembership = true;
                                 this.req.session.user.dueDays = days;
@@ -101,10 +107,11 @@ module.exports = {
                                 `
                                 
                                 var _membershipName = await sails.sendNativeQuery(query, [user.id]);
-                                let allMemberships = _membershipName.rows
-                                let membershipName = allMemberships.pop()
-                                this.req.session.user.membershipName = membershipName.name
-                                this.req.session.user.membershipEndDate = lastDate
+                                let allMemberships = _membershipName.rows;
+                                let membershipName = allMemberships.pop();
+                                this.req.session.user.membershipName = membershipName.name;
+                                this.req.session.user.membershipStartDate = _lastStartDate;
+                                this.req.session.user.membershipEndDate = lastDate;
                                 console.log('user has membership : ' +  this.req.session.user.hasActiveMembership )
                             
                             
@@ -122,7 +129,8 @@ module.exports = {
                         return this.res.redirect('/');
                     } else {
                         this.res.statusCode = 403
-                        return this.res.view('pages/unauthorized', {data:'forbidden'});
+                        //return this.res.view('pages/unauthorized', {data:'forbidden'});
+                        return this.res.permissions('Please login to view this content', {when:'inside Login'},'/')
                     }
                 }
             }
