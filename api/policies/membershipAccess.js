@@ -22,6 +22,7 @@ module.exports = async function(req, res, proceed,next) {
     let currentUser = req.session.user;
     console.log('inside membershipAccess', currentUser)
     if(!req.session.user){
+        console.log('user does not exist redirecting to signup')
         return res.redirect('/signup')
     } 
     
@@ -34,46 +35,10 @@ module.exports = async function(req, res, proceed,next) {
     }
     
     if(req.session.user.hasActiveMembership){
+        console.log('user exists, is active, updating with new membership')
         await utils.updateMembership(req,next)
-        return res.view('pages/account/successTemp', {data:'User is looking to upgrade the membership'})
+        return res.view('pages/account/successTemp', {data:'User has upgraded the membership'})
     }
-    // const localUserId = req.session.user.id;
-    // const results = await UserMembership.find({userId:localUserId})
-    // let checkSub = utils.validSub
 
-    // if (results.length < 1){ // case where user was never a customer (has never bought a subscription)
-    //     req.session.user.hasActiveMembership = false
-    //     console.log('user object: ', req.session.user)
-    //     console.log('user has no membership record. set to : ' + req.session.user.hasActiveMembership)
-        
-    // } else {
-        
-    //     const todayIs = new Date();
-    //     let membList = []
-    //     //create an array of past memberships
-    //     for (let result in results){
-    //         let compare = results[result].endDate
-    //         membList.push(compare)
-    //     }
-    //     //get the last ending date of the subscription
-    //     let lastDate = membList.pop()
-    //     const [isActive, days] = checkSub(todayIs, lastDate)
-    //     if(isActive){ // case where the user has an active subscription and has X days left
-    //         req.session.user.hasActiveMembership = true
-    //         req.session.user.dueDays = days
-    //         console.log('user has membership : ' + req.session.user.hasActiveMembership )
-    //     } else { // case where the user has a subscription but has expired and it's been expired for X days
-    //         req.session.user.hasActiveMembership = false
-    //         req.session.user.daysDue = days
-    //     }
-    //     console.log('user object: ', req.session.user)
-    // }
-
-    // if (req.session.user.email) {
-    //     return proceed(); 
-    // } 
-
-    // console.log('user object: ', req.session.user)
-    // return res.view('pages/unauthorized', {data:'Please login in order to proceed'})
 } 
 

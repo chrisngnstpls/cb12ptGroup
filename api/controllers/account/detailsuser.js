@@ -72,12 +72,11 @@ module.exports = {
                 if (err) return res.serverError(err) // error check ??? serverError 
                 
                 if (_.isEmpty(uploadedFiles)) {
-                    //emptyField = await true
+
                     console.log('empty field', someOldImage)
                     await UserDetails.updateOne({userId:postUser.id}).set({bio:bio, address:address, birthDate:bdate})
                 } else{
                     await UserDetails.updateOne({userId:postUser.id}).set({bio:bio, address:address, birthDate:bdate, image:imageLocation})
-                    //emptyField = await false;
                     console.log(uploadedFiles)
                     let lookup = postUser.email;
                     
@@ -105,17 +104,7 @@ module.exports = {
                 }
             })
 
-            // async function updateUser(hasImage){
-            //     if(!hasImage){
-            //         console.log(hasImage, 'no image')
-            //         await UserDetails.updateOne({userId:postUser.id}).set({bio:bio, address:address, birthDate:bdate, image:imageLocation})
-            //     } else if(hasImage){
-            //         console.log(hasImage, 'yes image')
-            //         await UserDetails.updateOne({userId:postUser.id}).set({bio:bio, address:address, birthDate:bdate, image:someOldImage})
-            //     }
-            // }
 
-            //updateUser(emptyField)
             return this.res.view('pages/account/successTemp', {data:'Success!'})
             
         } else if(method==='GET'){
@@ -139,8 +128,6 @@ module.exports = {
             var GETlocalPath = require('path').resolve(sails.config.appPath, 'assets')
             var locations = await imageLocation.split(GETlocalPath)
             
-            //_membershipName[0].name
-            //membershipName.rows.name
             /**
              * @team Implemented here different methods for the user details table for the two different cases (customer/trainer)
              * this will redirect to the details page with all the trainings history. The comparison for upcoming or past trainings

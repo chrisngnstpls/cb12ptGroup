@@ -37,22 +37,21 @@ module.exports = {
         console.log(this.req.session) // works
         console.log(inputs.location)//works
         console.log(inputs.startDate)//works
-        console.log(this.req.session.user_id, this.req.session.user_email)
+        console.log(this.req.session.user.id, this.req.session.user.email)
         */
         
 
         let session = this.req.session // <- get access to the req session and body object
-        console.log(this.req.body)
         let body = this.req.body
-        //let _booking = new Booking(body.location, body.startDate, session.trainer_selected, session.user_id,body.isCancelled) //<- initialize a new booking object
+
         let _booking = new Booking(body.location, body.startDate, session.trainer_selected, session.user.id)
         
         //uncomment for debug 
 
-        console.log('Booking Object : ' + _booking)
-        console.log('end Date : ' + _booking.endDate)
-        console.log('customer_id : ' + _booking.customerId)
-        console.log('trainer_id : ' + _booking.trainerId)
+        // console.log('Booking Object : ' + _booking)
+        // console.log('end Date : ' + _booking.endDate)
+        // console.log('customer_id : ' + _booking.customerId)
+        // console.log('trainer_id : ' + _booking.trainerId)
     
         
         var training = await Training.create({

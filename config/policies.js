@@ -23,12 +23,9 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-   //'*': isLoggedIn,
-  //'account/signup':formCheck,
   'account/signup2':formCheck,
   'account/detailsuser':isLoggedIn,
   'account/trainer': ['isloggedIn', 'membershipCheck'],
-  //'account/trainer':isLoggedIn,
   'account/trainer2':trainingCheck,
   'membership/getmembership': membershipAccess
 };

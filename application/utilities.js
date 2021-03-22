@@ -108,12 +108,6 @@ async function updateMembership(req,res,next){
     }).fetch()
     
     const [isActive, days] =  validSubscription(newEndDate, newUserMembership.endDate)
-    // console.log('id: ', await newUserMembership.id)
-    // console.log('active? ', await isActive)
-    // console.log('days left? ',await days)
-    // console.log('sub name : ',req.body.name)
-    // console.log('ending date : ' ,await newUserMembership.endDate)
- 
     
     req.session.user.lastMembershipId = await newUserMembership.id
     req.session.user.hasActiveMembership = await isActive
