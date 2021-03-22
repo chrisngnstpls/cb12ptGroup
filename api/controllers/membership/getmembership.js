@@ -1,4 +1,5 @@
 const NewUserMembership = require('../../../classes/newuserMembership');
+const utils = require('../../../application/utilities')
 
 module.exports = {
     inputs: {
@@ -54,7 +55,15 @@ module.exports = {
             isCancelled: _newMembership.isCancelled,
             userId: _newMembership.userId,
             membershipId: _newMembership.id
-        })
+        }).fetch()
+
+
+        const [isActive, days] =   utils.validSub(req.body.startDate, newUserMembership.endDate)
+        req.session.user.lastMembershipId = await newUserMembership.id
+        req.session.user.hasActiveMembership = await isActive
+        req.session.user.dueDays = await days
+        req.session.user.membershipName =  req.body.name
+        req.session.user.membershipEndDate = await newUserMembership.endDate
         console.log(_newMembership);
 
 

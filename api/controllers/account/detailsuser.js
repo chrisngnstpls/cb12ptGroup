@@ -126,6 +126,7 @@ module.exports = {
             let trainingPayloadPast = [];
             let fullurl;
             console.log('GET method : ' + method)
+            console.log('user model : ', session.user)
             var user = await User.findOne({email:req.session.user.email})
             var user_id = await user.id
             var fname = await user.firstName

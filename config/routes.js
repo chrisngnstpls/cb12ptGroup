@@ -56,6 +56,7 @@ module.exports.routes = {
   'POST /users/list': {action: 'admindash/userlist2'},
 
   
+  
 
   // 'GET /trainerpage': {action: 'account/trainer'},
   // 'POST /trainerpage': {action: 'account/trainer2'}

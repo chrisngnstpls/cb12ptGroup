@@ -14,8 +14,8 @@ module.exports = {
     // },
 
     fn:async function(inputs) {
-        console.log(this.req.session)
-        let session = this.req.session
+        console.log(this.req.session);
+        let session = this.req.session;
         let user;
         let goOnMr;
         // error check inputs 
@@ -24,7 +24,7 @@ module.exports = {
             goOnMr = true;
         } else {
             goOnMr = false;
-            return this.res.view ('pages/account/login', {data:'please enter ID & pass'})
+            return this.res.view ('pages/account/login', {data:'please enter ID & pass'});
             
         }
 
@@ -51,38 +51,44 @@ module.exports = {
                     
                     if (match) {
                         /*lines below obsolete after session user model implementation */
-                        this.req.session.user_email = user.email;
-                        this.req.session.user_id = user.id
-                        this.req.session.isAdmin = userDetails.isAdmin
-                        this.req.session.isTrainer = userDetails.isTrainer
-                        this.req.session.isCustomer = userDetails.isCustomer
-                        console.log('set session email @ : ' + this.req.session.user_email + 'and user id : ' + this.req.session.user_id);
-                        /*end obsoleteness*/
-                        
-                        let _userModel = utilities.userModel(user,userDetails)
-                        const results = await UserMembership.find({userId:user.id})
-                        session.user = await _userModel
+                        // this.req.session.user_email = user.email;
+                        // this.req.session.user_id = user.id;
+                        // this.req.session.isAdmin = userDetails.isAdmin;
+                        // this.req.session.isTrainer = userDetails.isTrainer;
+                        // this.req.session.isCustomer = userDetails.isCustomer;
+                        // console.log('set session email @ : ' + this.req.session.user_email + 'and user id : ' + this.req.session.user_id);
+                        // /*end obsoleteness*/
+                        const todayIs = new Date();
+                        let _userModel = utilities.userModel(user,userDetails);
+                        const results = await UserMembership.find({userId:user.id});
+                        session.user = await _userModel;
+                        session.user.logTime = todayIs;
                         if (results.length < 1){ // case where user was never a customer (has never bought a subscription)
                             this.req.session.user.hasActiveMembership = false
                             console.log('user has no membership record. set to : ' + session.user.hasActiveMembership)
                             
                         } else {
-                            let checkSub = utilities.validSub
-                            const todayIs = new Date();
-                            let membList = []
+                            let checkSub = utilities.validSub;
+                            
+                            let membList = [];
+                            let membId = [];
                             //create an array of past memberships
                             for (let result in results){
-                                let compare = results[result].endDate
-                                membList.push(compare)
+                                let compare = results[result].endDate;
+                                let membIdTemp = results[result].id
+                                membList.push(compare);
+                                membId.push(membIdTemp);
                             }
                             //get the last ending date of the subscription
-                            let lastDate = membList.pop()
-                            
+                            let lastDate = membList.pop();
+                            let lastId = membId.pop();
+                            session.user.lastMembershipId = lastId;
                             const [isActive, days] = checkSub(todayIs, lastDate)
                             
                             if(isActive){ // case where the user has an active subscription and has X days left
-                                this.req.session.user.hasActiveMembership = true
-                                this.req.session.user.dueDays = days
+                                this.req.session.user.hasActiveMembership = true;
+                                this.req.session.user.dueDays = days;
+                                
                                 
                                 let query = `
                                 SELECT m.name 
