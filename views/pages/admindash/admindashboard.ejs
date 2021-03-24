@@ -1,0 +1,199 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: #000;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 300;
+    }
+
+    .megawrap {
+        background-color: #fff;
+    }
+
+    .table {
+        padding-top: 20px;
+        padding: 5px 10px;
+        border: 1px double #000;
+        background-color: #eee;
+        width: 80%;
+    }
+
+    span {
+        padding: 0 8px;
+    }
+
+    h1 {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 600;
+        background-color: #000;
+        padding: 30px 20px;
+        color: #fff;
+        text-align: center;
+    }
+
+    h3 {
+        padding-bottom: 20px 0;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 300;
+    }
+
+    h4 {
+        padding: 30px 0;
+    }
+
+    .fields {
+        display: flex;
+        padding: 10px;
+    }
+
+    .lab {
+        margin-right: 10px;
+    }
+
+    #btn {
+        margin-left: 10px;
+    }
+
+    .container1 {
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+    .form1 {
+        display: block;
+        width: 50%;
+        margin: auto;
+        text-align: center;
+    }
+
+    .megawrap {
+        margin: 0 auto;
+        padding: 30px;
+        width: 80%;
+        border: 1px solid #000;
+    }
+</style>
+<div class="megawrap">
+    <h1>Admin Dashboard</h1>
+    <div class="container1">
+        <h4>Select a query! You do not have to fill in all fields to get the result.</h4>
+        <!-- start of form -->
+        <form method="POST" class="row g-3 form1">
+            <div class="col-auto">
+                <label for="usertype">Select</label>
+                <select class="form-select" id="usertype" name="usertype" aria-label="Default select example">
+                    <option value="">Open this select menu</option>
+                    <option value="Customers">Customers</option>
+                    <option value="Trainers">Trainers</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <label for="userprop">that have</label>
+                <select class="form-select" id="userprop" name="userprop" aria-label="Default select example">
+                    <option value="">Open this select menu</option>
+                    <option value="Training">Training</option>
+                    <option value="Membership">Membership</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <label for="userprop2">and is</label>
+                <select class="form-select" id="userprop2" name="userprop2" aria-label="Default select example">
+                    <option value="">Open this select menu</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-1">Submit</button>
+            </div>
+        </form>
+        <br>
+        <hr>
+        <br>
+        <h2>Date range/Total sessions queries</h2>
+        <h4>Select customers and their total sessions count for a specific date range</h4>
+        <br><br>
+        <form method="POST" class="row g-3 form1">
+            <div class="col-auto">
+                <label for="startDate">
+                    <h5>StartDate:</h5>
+                </label>
+                <input type="date" id="sdate" name="startDate" class="form-control">
+            </div>
+            <div class="col-auto">
+                <label for="startDate">
+                    <h5>EndDate:</h5>
+                </label>
+                <input type="date" id="ndate" name="endDate" class="form-control">
+            </div>
+
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-1">Submit</button>
+            </div>
+        </form>
+
+
+    </div>
+    <!-- end of form -->
+    <br><br>
+    <br><br>
+    press button to move on
+
+
+    <!-- Modal Section -->
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Go to homepage
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Visit Homepage
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    You are about to visit the homepage!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="/"> <button type="button" class="btn btn-primary">Yes take me there</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+
+    <!-- End of Modal Section -->
+
+
+
+</div>
