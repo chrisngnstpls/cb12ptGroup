@@ -88,7 +88,7 @@ const { util } = require('grunt')
         })
         return message = await Promise.resolve('Is OKE')
 };
-
+// Function to build a session user model skeleton
 async function constructUserModel(user,details){
     let userModel = {
         email : await user.email,
@@ -103,7 +103,7 @@ async function constructUserModel(user,details){
     }
     return model = await Promise.resolve(userModel)
 };
-
+// Function to update/create membership
 async function updateMembership(req,res,next){
     let eligibleForOffer = config.eligibleForOffers;
     const NewUserMembership = require('../classes/newuserMembership');
@@ -160,7 +160,7 @@ async function updateMembership(req,res,next){
     return message = await Promise.resolve('Updated OK.')
 };
 
-
+// Payment system / fund management
 async function fundManagement(action,req,res){
     let currentBalance = parseInt(req.session.user.balance)
     // let fundsToHandle = parseInt(req.body.funds)
@@ -240,6 +240,7 @@ async function fundManagement(action,req,res){
     return await Promise.resolve([walletStatus,message])
 };
 
+// Function to calculate remaining sessions. NOT STORED ONLY SERVED DYNAMICALLY
 async function calculateSessions(req,res){
     let totalTrainings;
     

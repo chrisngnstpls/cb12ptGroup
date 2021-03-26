@@ -1,6 +1,8 @@
 const _dateFormat = require('dateformat')
 const utils = require('./utilities')
 
+
+//Function to calculate booked trainings used on login
 async function getBookedTrainings(id,req,res){
     let today = new Date()
     today = utils.formatDate(today)

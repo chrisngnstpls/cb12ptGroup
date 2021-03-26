@@ -1,11 +1,5 @@
 module.exports = {
     
-    // exits: {
-    //     success: {
-    //         viewTemplatePath: 'pages/account/signup' // default exit view to signup form
-    //     }
-    // },
-
     fn: async function() {
         
         /* This is the GET controller for the signup page. 

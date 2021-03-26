@@ -51,12 +51,16 @@ module.exports.routes = {
   'GET /trainers/book/:id': {action: 'account/trainer'},
   'POST /trainers/book/:id': {action: 'account/trainer2'},
 
+  
   //delete a training
   'GET /trainings/cancel/:id': {action: 'account/deletetraining'},
-    // delete a location
+  
+  // delete a location
   'GET /locations/delete/:id': {action: 'admindash/deletelocation'},
+  
   // customer/trainer personal page info
   '/detailsuser' : {action :'account/detailsuser'},
+  
   //wallet services
   '/wallet' : {action:'account/userwallet'},
 
@@ -68,19 +72,6 @@ module.exports.routes = {
   'POST /users/list': {action: 'admindash/userlist2'},
   'GET /addlocation': {action: 'admindash/addlocation'}, 
   'POST /addlocation': {action: 'admindash/addlocation2'},
-
-
-  
-  
-
-  // 'GET /trainerpage': {action: 'account/trainer'},
-  // 'POST /trainerpage': {action: 'account/trainer2'}
-
-  
-
-
-
-
 
   /***************************************************************************
   *                                                                          *

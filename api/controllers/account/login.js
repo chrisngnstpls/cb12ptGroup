@@ -18,10 +18,6 @@ module.exports = {
         let user;
         let goOnMr;
 
-        // let eligibleForOffers = {
-        //     membershipName :'Bronze',
-        //     daysDue : 365
-        // }
         let eligibleForOffers = config.eligibleForOffers
         console.log('Eligible for offers : ', eligibleForOffers)
         // error check inputs 
@@ -48,7 +44,7 @@ module.exports = {
             if(!user){
                 _print('User not found');
                 // return this.res.view('pages/unauthorized', {data:'not found'})
-                return this.res.permissions('There was an error with your data', {when:'inside login'},'/login')
+                return this.res.permissions('Invalid criteria', {when:'inside login'},'/login')
             
             } else if (user) {
                 
@@ -92,7 +88,7 @@ module.exports = {
                             let _lastStartDate = lastStartDate.pop();
                             session.user.lastMembershipId = lastId;
                             const [isActive, days] = checkSub(todayIs, lastDate)
-                            //let allTrainings = await Training.find({customerId:this.req.session.user.id, isCancelled:0})
+
                             if(isActive){ // case where the user has an active subscription and has X days left
                                 this.req.session.user.hasActiveMembership = true;
                                 this.req.session.user.dueDays = days;
@@ -146,7 +142,7 @@ module.exports = {
                     } else {
                         this.res.statusCode = 403
                         //return this.res.view('pages/unauthorized', {data:'forbidden'});
-                        return this.res.permissions('Please login to view this content', {when:'inside Login'},'/')
+                        return this.res.permissions('Invalid criteria', {when:'inside Login'},'/')
                     }
                 }
             }

@@ -104,7 +104,6 @@ module.exports = {
             })
 
             return res.successAction('Update success.', {where:'inside details user POST'},'/detailsuser')
-            //return this.res.view('pages/account/successTemp', {data:'Success!'})
             
         } else if(method==='GET'){
             let res = this.res
@@ -176,7 +175,7 @@ module.exports = {
 
             }
             
-            
+
 
             return this.res.view('pages/account/detailsuser', {
                                                             data:method,
@@ -199,7 +198,6 @@ module.exports = {
             console.log('no post or get. current method : ' + method)
         }
 
-        //return {data:method}
     }
 }
 

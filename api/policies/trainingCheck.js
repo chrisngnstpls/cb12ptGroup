@@ -79,7 +79,7 @@ module.exports = async function(req, res, proceed) {
         errorLog.error = 'You have no more sessions left for booking!'
     }
 
-    if(startDate == "" || location == "") {
+    if(startDate == "Invalid Date" || location == "") {
         errorLog.error = "Please fill in all fields"
     } 
     if(trainerId == customerId) {

@@ -45,7 +45,6 @@ module.exports = async function(req, res, proceed,next) {
         return proceed();
     }
     if(req.session.user.membershipName == req.body.name){
-        //return res.view('pages/account/successTemp', {data:`You are already subscribed with membersip ${req.body.name}`})
         return res.permissions(`You are already subscribed with membersip ${req.body.name}`,{where:'membership update policy'},'/detailsuser')
     }
     
@@ -56,16 +55,8 @@ module.exports = async function(req, res, proceed,next) {
         await utils.updateMembership(req,next)
         await utils.fundManagement('subtract', req,res)
         return res.successAction(`Membership upgraded to ${req.body.name}!`, {where:'membership update policy'},'/detailsuser')
-        //return res.view('pages/account/successTemp', {data:`You have upgraded to membership ${req.body.name}`})
     }
-    
-    //begin edit:::
-    // if(req.session.user.hasActiveMembership && req.session.user.membershipName == eligibleForOffers.membershipName){
-    //     console.log('user exists, is active, and has a bronze membership, updating to special offer')
-    //       await utils.updateMembership(req,next)
-    //       return res.successAction(`Membership upgraded to ${req.body.name}!`, {where:'membership update policy'},'/detailsuser')
-    //   }
-      
+
 
 } 
 

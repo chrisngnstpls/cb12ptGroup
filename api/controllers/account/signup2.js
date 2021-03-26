@@ -72,9 +72,9 @@ module.exports = {
                 res.redirect('/login');
             }
         } else if(checkExisting){ // exit route if user exists
-            //console.log('user already exists')
+
             return res.permissions('User already exists', {when:'inside signup'},'/login')
-            // res.view('pages/account/login', {data: 'Please Login'})
+
         }
     }
 }
