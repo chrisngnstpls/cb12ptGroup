@@ -1,7 +1,7 @@
 module.exports = {
     exits: {
         success: {
-            viewTemplatePath: 'pages/homepage3'
+            viewTemplatePath: 'pages/homepage2'
         }
     },
     fn: async function() {

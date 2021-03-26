@@ -1,7 +1,7 @@
 module.exports = {
     exits: {
         success: {
-            viewTemplatePath: 'pages/homepage3'
+            viewTemplatePath: 'pages/admindash/addlocation'
         }
     },
     fn: async function() {

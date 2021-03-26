@@ -29,52 +29,6 @@
         #exampleFormControlTextarea1 {
             resize: none;
         }
-
-        .cancel {
-            background-color: #fff;
-            color: rgba(214, 79, 78, 1);
-            font-size: 20px;
-            padding: 5px 15px;
-            border-radius: 12px;
-            border: 1.5px solid rgba(214, 79, 78, 1);
-            transition: 0.3s ease-in-out;
-        }
-
-        .cancel:hover {
-            color: white;
-            background-color: rgba(214, 79, 78, 1);
-        }
-
-        .submitok {
-            color: #fff;
-            background-color: rgba(18, 160, 136, 1);
-            font-size: 20px;
-            padding: 5px 15px;
-            border-radius: 12px;
-            border: 1.5px solid rgba(18, 160, 136, 1);
-            transition: 0.3s ease-in-out;
-        }
-
-        .submitok:hover {
-            background-color: rgba(24, 180, 153, 1);
-            border: 1.5px solid rgba(24, 180, 153, 1);
-            color: #fff;
-        }
-
-        .upgrd {
-            color: #fff;
-            background-color: rgb(210, 181, 69);
-            font-size: 20px;
-            padding: 5px 15px;
-            border-radius: 12px;
-            border: 1.5px solid rgb(210, 181, 69);
-            transition: 0.3s ease-in-out;
-        }
-
-        .upgrd:hover {
-            background-color: rgb(191, 161, 41);
-            border: 1.5px solid rgb(177, 147, 27);
-        }
     </style>
 </head>
 <!-- HEADER -->
@@ -83,7 +37,7 @@
         <div class="row">
             <div class="col-md-8">
                 <h1>
-                    <i class="fas fa-user mr-4"></i>My account
+                    <i class="fas fa-user mr-4"></i>Your account
                 </h1>
             </div>
             <div class="d-flex flex-row justify-content-end flex-around tit mt-2">
@@ -182,7 +136,7 @@
                             </div>
                             <hr>
                             <div class="d-flex justify-content-left ml-3">
-                                <button type="submit" class="btn submitok">Submit</button>
+                                <button type="submit" class="btn btn-success">Submit</button>
                             </div>
                         </form>
                         <!-- <hr> -->
@@ -193,7 +147,7 @@
                             <p class="text-muted">
                                 <%=membershipName%>
                             </p>
-                            <button type="button" class="btn text-white upgrd ml-2" data-toggle="modal"
+                            <button type="button" class="btn btn-warning text-white ml-2" data-toggle="modal"
                                 data-target="#exampleModal">Upgrade</button>
                         </div>
 
@@ -253,7 +207,7 @@
                                                         <td>
                                                             <!-- Button trigger modal -->
                                                             <!-- <div class="col d-flex align-items-end flex-column"> -->
-                                                            <button class="btn cancel"
+                                                            <button class="btn btn-danger"
                                                                 onclick="deleteTraining('<%=url%>' +'/trainings/cancel/' +'<%=payloadFuture[i]._id%>')">
                                                                 Cancel</button>
                                                             <!-- </div> -->

@@ -1,5 +1,6 @@
 <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="/style2.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 <!-- Bootstrap -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -9,12 +10,12 @@
 <link rel="stylesheet" href="trainer_list.css">
 
 <style>
-    @import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
-
     body {
         /* background: rgb(229, 230, 233) */
         background-color: #fff;
     }
+
+    @import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
 
 
     .navbar-custom {
@@ -40,65 +41,25 @@
     .link {
         color: white;
     }
-
-    .sectitle {
-        padding-bottom: 10px;
-        color: rgb(124, 124, 124);
-    }
-
-    #selected-dates {
-        padding: 5px 10px;
-        width: 200px;
-        height: 40px;
-        border-radius: 10px;
-        font-size: 20px;
-        color: rgb(97, 97, 97);
-        background-color: rgba(228, 228, 228, 0.6);
-        border: 1px solid rgba(201, 200, 200, 0.3);
-    }
-
-    #locationId {
-        padding: 5px 10px;
-        width: 200px;
-        height: 40px;
-        border-radius: 10px;
-        font-size: 20px;
-        color: rgb(97, 97, 97);
-        background-color: rgba(228, 228, 228, 0.6);
-        border: 1px solid rgba(201, 200, 200, 0.3);
-    }
-
-    .customback {
-        box-shadow: 0 15px 25px rgba(0, 0, 0, .2);
-    }
-
-    .card1 {
-        padding-bottom: 60px;
-    }
-
-    #picker {
-        padding-bottom: 15px;
-    }
 </style>
+<!-- <p>Authenticated user id : <%=// req.session.user_id%>
+    </p>
+    <p>Trainer selected from prev. page : <%=// req.session.trainer_selected%>
+    </p> -->
 
 <!-- menu bar -->
+
 <header id="header">
-    <nav class="navbar navbar-expand-lg navbar-custom">
+    <nav class="navbar navbar-expand-lg navbar-custom ">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobileNav"
-                aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon burger-custom"><img src="/images/burgerIcon.png" alt=""
-                        style="height: 100%; width: 100%; object-fit: contain;"></span>
-            </button>
 
-
-            <div class="navbar-collapse collapse " style="background-color: black;" id="mobileNav">
+            <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-3">
                     <li class="nav-item">
                         <a class="nav-link active text-white" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="/">About</a>
+                        <a class="nav-link text-white" href="#">About</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="/trainers">Trainers</a>
@@ -107,48 +68,28 @@
                         <a class="nav-link text-white" href="/memberships">Memberships</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="#contact">Contact</a>
+                        <a class="nav-link text-white" href="#">Contact</a>
                     </li>
-                    <% if(req.session.user) { %>
-                        <li class="nav-item d-lg-none">
-                            <a href="/detailsuser" class="nav-link text-white account">
-                                <%=req.session.user.fname%>
-                            </a>
-                        </li>
-                        <% } else { %>
-                            <li class="nav-item d-lg-none">
-                                <a href="/login" class="nav-link text-white">Sign in</a>
-                            </li>
-                            <li class="nav-item d-lg-none">
-                                <a href="/signup" class="nav-link text-white">Sign up</a>
-                            </li>
-                            <% } %>
                 </ul>
             </div>
-            <% if(req.session.user) { %>
-                <div class="m-3 text-right d-none d-lg-block"><a class="account" href="/detailsuser">
-                        <%=req.session.user.fname%><img src="/images/user.png" alt="user" width="30rem">
-                    </a></div>
-                <% } else { %>
-                    <div class="m-3 text-right text-white d-none d-lg-block">
-                        <a href="/login" class="nav-link text-white">Sign in</a>
-                    </div>
-                    <div class="m-3 text-right text-white d-none d-lg-block">
-                        <a href="/signup" class="nav-link text-white">Sign up</a>
-                    </div>
-                    <% } %>
+            <div class="m-3 text-right myacc">
+                <a class="account" href="/detailsuser">My Account <img src="/images/user.png" alt="user"
+                        width="30rem"></a>
+            </div>
+
         </div>
     </nav>
 
+    <div class="container-fluid max-height"></div>
 </header>
 
 <!-- end of menu bar -->
 
 <!-- start of card section -->
 
-<div class="container rounded bg-white mt-5 card1">
+<div class="container rounded bg-white mt-5">
     <h1>Trainer <%=trainerObject.trainerLastName%> Calendar</h1>
-    <div class="row py-2 ">
+    <div class="row py-2">
 
         <div class="col-md-8">
             <div class="p-3 py-5">
@@ -171,14 +112,13 @@
             </div>
         </div>
         <div class="col-sm-12 col-md-8 col-lg-4 mt-2">
-            <div class="card card-inverse card-info customback">
+            <div class="card card-inverse card-info ">
                 <img class="card-img-top" src="<%=trainerObject.trainerImage%>">
 
             </div>
         </div>
     </div>
 </div>
-
 
 <!--  end of card section -->
 
@@ -188,25 +128,20 @@
     <div>
         <div class="formselect">
             <form method="POST">
-                <div class="sectitle">
-                    <h5>Select a slot</h5>
-                    <input type="text" name="startDate" id="selected-dates" value="Choose datetime" readonly>
-                </div>
-                <div class="sectitle">
-                    <h5>Select a location</h5>
-                </div>
-                <!-- </select> -->
 
-                <select id="locationId" name="locationId">
-                    <% for(let i in trainingLocations) { %>
-                        <option id="locations" value="<%= trainingLocations[i].id%>">
-                            <%= trainingLocations[i].location %>
-                        </option>
-                        <% } %>
+                <p>Selected slot:</p>
+                <input type="text" name="startDate" id="selected-dates" readonly>
+                <p>Select Location:</p>
 
+                <input list="locationlist" id="location" name="location" />
+
+                <select id="locationlist">
+                    <option value="Center Athens">Center Athens</option>
+                    <option value="North Suburbs">North Suburbs</option>
+                    <option value="Southside">Southside</option>
+                    <option value="East Coast">East Coast</option>
+                    <option value="West Districts">West Districts</option>
                 </select>
-                <!-- end of </select> -->
-
                 <input type="hidden" name="isCancelled" value="false">
                 <!-- error popup message -->
                 <% if(errorList.error) { %>
@@ -227,15 +162,9 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
+<script>
+
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script type="text/javascript" src="/js/script.js"></script>

@@ -11,8 +11,8 @@ module.exports = {
         var GETlocalPath = require('path').resolve(sails.config.appPath, 'assets')
         
         //uncomment for debug
-        // console.log('trainer ID selected : ' + id)
-        // console.log('firing from inside trainer.js controller')
+        console.log('trainer ID selected : ' + id)
+        console.log('firing from inside trainer.js controller')
         
         
         let session = this.req.session;
@@ -25,17 +25,6 @@ module.exports = {
         
         let trainerData = await User.findOne({id:session.trainer_selected})
         let extraData = await UserDetails.findOne({userId:session.trainer_selected})
-
-        let locations = await Location.find({})
-
-        let _locations = [];
-        // console.log(locations);
-        for (let location in locations){
-            let row = await locations[location]
-           
-            _locations.push(row);
-        }
-        //  console.log(_locations);
         
         let dataPacket = {trainerFirstName : trainerData.firstName,
                             trainerLastName : trainerData.lastName,
@@ -48,27 +37,23 @@ module.exports = {
             session.trainerImage = dataPacket.trainerImage;
             console.log(session.trainerFname)
             console.log(session.trainerLname)
-
-
-
         
         for (training in trainerTrainings) {
             let _training = new NewTraining(
+                trainerTrainings[training].location,
                 trainerTrainings[training].startDate,
                 trainerTrainings[training].trainerId,
                 trainerTrainings[training].customerId,
-                trainerTrainings[training].locationId,
                 trainerTrainings[training].endDate
             );
-           
+            // console.log(Object.values(_training), _training.endDate)
             payload.push(_training);
         }
-        
-      
+
         // //Uncomment for debug
         // console.log('Session email : ' + session.user_email + 'Session User ID : '+  session.user_id + 'Session Trainer Selected ID : ' + session.trainer_selected);
         // console.log('end trainer.js output');
         
-        return res.view('pages/account/trainerpage',{errorList:'', bookedTrainings:payload, trainingLocations: _locations, trainerObject : dataPacket }) 
+        return res.view('pages/account/trainerpage',{errorList:'', bookedTrainings:payload, trainerObject : dataPacket }) 
     }
 }

@@ -6,11 +6,13 @@
         href="/Users/Plfrantic/Downloads/Group-project-main/Group-project-main/my_group_files/Categories/catstyles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="homecss.css">
+    <link rel="stylesheet" href="trainings.css">
     <title>Document</title>
+
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
 
+        @import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
 
         .navbar-custom {
             background-color: black;
@@ -18,14 +20,30 @@
             font-family: 'Russo One', sans-serif;
         }
 
-        div ul li a {
-            font-size: 1.5rem;
+
+        .account {
+            text-decoration: none;
+            margin-top: 20px;
+            color: white;
+
         }
 
-        .imageCat {
-            max-width: 100%;
-            max-height: 100%;
+        .custom-div {
+            z-index: 0;
         }
+
+        #mobileNav {
+            z-index: 1;
+        }
+
+        div ul li a {
+            font-size: 1.2rem;
+        }
+
+        h3 {
+            font-family: 'Permanent Marker', cursive;
+        }
+
 
         button {
             background: none;
@@ -43,61 +61,29 @@
             transform: translateY(-0.25em);
             cursor: pointer;
         }
-
-        .wrapper {
-            /* border : 5px solid #000;  */
-            overflow: hidden;
-            background-color: grey;
-        }
-
-        .wrapper div {
-            min-height: 300px;
-            padding: 10px;
-        }
-
-        #one {
-            background-color: black;
-            float: left;
-            margin-right: 2px;
-            width: 500px;
-            border-right: 2px solid #000;
-        }
-
-        #two {
-            background-color: grey;
-            overflow: hidden;
-            margin: 10px;
-            border: 2px dashed #ccc;
-            min-height: 170px;
-        }
-
-        @media screen and (max-width: 500px) {
-            #one {
-                float: none;
-                margin-right: 0;
-                width: auto;
-                border: 0;
-                border-bottom: 10px solid #000;
-            }
-        }
     </style>
 </head>
-<!-- /Users/Plfrantic/Downloads/Group-project-main/Group-project-main/my_group_files/Categories/catstyles.css -->
 
 <body>
     <section>
         <!-- menu bar -->
         <header id="header">
-            <nav class="navbar navbar-expand-lg navbar-custom ">
+            <nav class="navbar navbar-expand-lg navbar-custom">
                 <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobileNav"
+                        aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon burger-custom"><img src="/images/burgerIcon.png" alt=""
+                                style="height: 100%; width: 100%; object-fit: contain;"></span>
+                    </button>
 
-                    <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <div class="navbar-collapse collapse show" style="background-color: black;" id="mobileNav">
                         <ul class="navbar-nav ml-3">
                             <li class="nav-item">
                                 <a class="nav-link active text-white" aria-current="page" href="/">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="#">About</a>
+                                <a class="nav-link text-white" href="/">About</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="/trainers">Trainers</a>
@@ -106,81 +92,123 @@
                                 <a class="nav-link text-white" href="/memberships">Memberships</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="#">Contact</a>
+                                <a class="nav-link text-white" href="#contact">Contact</a>
                             </li>
+                            <% if(req.session.user) { %>
+                                <li class="nav-item d-lg-none">
+                                    <a href="/detailsuser" class="nav-link text-white account">
+                                        <%=req.session.user.fname%>
+                                    </a>
+                                </li>
+                                <% } else { %>
+                                    <li class="nav-item d-lg-none">
+                                        <a href="/login" class="nav-link text-white">Sign in</a>
+                                    </li>
+                                    <li class="nav-item d-lg-none">
+                                        <a href="/signup" class="nav-link text-white">Sign up</a>
+                                    </li>
+                                    <% } %>
                         </ul>
                     </div>
-                    <div class="m-3 text-right">
-                        <img src="/images/user.png" alt="user" width="30rem">
-                    </div>
-                    <div class="m-3 text-right text-white">My Account</div>
+                    <% if(req.session.user) { %>
+                        <div class="m-3 text-right d-none d-lg-block"><a class="account" href="/detailsuser">
+                                <%=req.session.user.fname%><img src="/images/user.png" alt="user" width="30rem">
+                            </a></div>
+                        <% } else { %>
+                            <div class="m-3 text-right text-white d-none d-lg-block">
+                                <a href="/login" class="nav-link text-white">Sign in</a>
+                            </div>
+                            <div class="m-3 text-right text-white d-none d-lg-block">
+                                <a href="/signup" class="nav-link text-white">Sign up</a>
+                            </div>
+                            <% } %>
                 </div>
             </nav>
 
-            <div class="container-fluid max-height"></div>
         </header>
 
         <!-- end of menu bar -->
 
-        <div class="wrapper">
-            <div id="one">
-                <img src="/images/pilates.jpeg" alt="" class="imageCat">
+        <div class="row mt-2 mx-1 custom-div">
+            <div class="col-lg-6 col-md-12">
+                <img src="/images/pilates2.png" width="100%">
             </div>
-            <div id="two">
-                <h3>Pilates</h3>
-                <p>Experience a unique and transformative approach to pilates that will have you feeling not just
+            <div class="col-lg-6 col-md-12">
+                <h3 class="mb-5 d-flex justify-content-center pt-5">Pilates</h3>
+                <p class="text-muted">Experience a unique and transformative approach to pilates that will have you
+                    feeling not just
                     stronger, longer, and leaner but also relieved of physical tension and mental stress. Create
                     sustainable and lasting change that will help you feel and look your most confident. Whether Pilates
                     is second nature to you, or if you’re a beginner, a mom, business woman or both… The Pilates Class
                     is for you.</p>
-                <button>Learn More</button>
+                <div class="d-flex justify-content-center">
+                    <button class="mt-5">Learn More</button>
+                </div>
             </div>
         </div>
+        <hr class="d-lg-none">
+        <div class="row mx-1">
 
-        <div class="wrapper">
-            <div id="one">
-                <img src="/images/aerobics.jpeg" alt="" class="imageCat">
+            <div class="col-lg-6 col-md-12 cst-div">
+                <h3 class="d-flex justify-content-center pt-5 mb-5">TRX</h3>
+                <p class="text-muted">Whether beginning a fitness journey or pushing toward your summit, TRX Training
+                    helps you move
+                    better, feel better, and live better. ALL LEVELS, ALL GOALS means it's literally for ALL OF YOU:
+                    Beginners, Pro Athletes, Runners, Yogis, Cyclists, Cross-Trainers, Service members, Combat Athletes,
+                    and more.</p>
+                <div class="d-flex justify-content-center">
+                    <button class="my-5">Learn More</button>
+                </div>
+
             </div>
-            <div id="two">
-                <h3>Aerobics</h3>
-                <p>Cardio exercise, which is sometimes referred to as aerobic exercise, is any rhythmic activity that
+            <div class="col-lg-6 col-md-12">
+                <img src="/images/trx.jpeg" width="100%">
+            </div>
+
+        </div>
+        <hr class="d-lg-none">
+
+
+        <div class="row mx-1">
+            <div class="col-lg-6 col-md-12">
+                <img src="/images/aerobics.jpeg" width="100%">
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <h3 class="mb-5 d-flex justify-content-center pt-5">Aerobics</h3>
+                <p class="text-muted">Cardio exercise, which is sometimes referred to as aerobic exercise, is any
+                    rhythmic activity that
                     raises your heart rate into your target heart rate zone. This is the zone where you burn the most
                     fat and calories.Part of what sets cardio apart from other types of exercise—such as strength
                     training, for instance—is that it relies on your body's ability to use oxygen during the workout
                     session. A person's cardio ability or capacity can vary based on a number of factors.</p>
-                <button>Learn More</button>
+                <div class="d-flex justify-content-center">
+                    <button class="mt-5">Learn More</button>
+                </div>
             </div>
         </div>
+        <hr class="d-lg-none">
 
-        <div class="wrapper">
-            <div id="one">
-                <img src="/images/trx.jpeg" alt="" class="imageCat">
-            </div>
-            <div id="two">
-                <h3>TRX</h3>
-                <p>Whether beginning a fitness journey or pushing toward your summit, TRX Training helps you move
-                    better, feel better, and live better. ALL LEVELS, ALL GOALS means it's literally for ALL OF YOU:
-                    Beginners, Pro Athletes, Runners, Yogis, Cyclists, Cross-Trainers, Service members, Combat Athletes,
-                    and more.</p>
-                <button>Learn More</button>
-            </div>
-        </div>
-
-        <div class="wrapper">
-            <div id="one"><img src="/images/crossfit.jpeg" alt="" class="imageCat"></div>
-            <div id="two">
-                <h3>Crossfit</h3>
-                <p>A form of high intensity interval training, CrossFit is a strength and conditioning workout that is
+        <div class="row mx-1">
+            <div class="col-lg-6 col-md-12">
+                <h3 class="d-flex justify-content-center pt-5 mb-5">Crossfits</h3>
+                <p class="text-muted">A form of high intensity interval training, CrossFit is a strength and
+                    conditioning workout that is
                     made up of functional movement performed at a high intensity level.These movements are actions that
                     you perform in your day-to-day life, like squatting, pulling,
                     pushing etc. Many workouts feature variations of squats, push-ups, and weight lifting that last for
                     predetermined amounts of time to help build muscles. This varies from a traditional workout that may
                     tell you how many reps to do over any period of time.</p>
-                <button>Learn More</button>
+                <div class="d-flex justify-content-center">
+                    <button class="mt-5">Learn More</button>
+                </div> <br>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <img src="/images/crossfit.jpeg" width="100%">
             </div>
         </div>
-
     </section>
+
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

@@ -12,9 +12,11 @@ const isLoggedIn = require("../api/policies/isLoggedIn");
 const formCheck = require("../api/policies/formCheck");
 const trainingCheck = require("../api/policies/trainingCheck");
 const membershipAccess = require("../api/policies/membershipAccess");
-const membershipCheck = require("../api/policies/membershipCheck");
-const specialMembershipCheck = require("../api/policies/specialMembershipCheck");
+//const membershipCheck = require("../api/policies/membershipCheck");
+//const specialMembershipCheck = require("../api/policies/specialMembershipCheck");
 const membershipForm = require("../api/policies/membershipForm");
+const isAdmin = require('../api/policies/isAdmin')
+
 
 module.exports.policies = {
 
@@ -35,6 +37,10 @@ module.exports.policies = {
   'membership/getspecialmembership': membershipAccess,
   // 'membership/getspecialmembership': specialMembershipCheck,
   'membership/createmembership2': membershipForm,
-  
+  'admindash/addlocation': isAdmin,
+  'admindash/userlist': isAdmin,
+  'membership/createmembership': isAdmin,
+  'admindash/deletelocation': isAdmin,
+  'membership/editmembership': isAdmin,
 };
 

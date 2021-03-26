@@ -11,7 +11,7 @@ module.exports = {
     fn: async function() {
         let now = new Date();
         var today = utils.formatDate(now);
-        console.log(today);
+        // console.log(today);
 
         var query1 = `
         SELECT id, startDate
@@ -20,8 +20,15 @@ module.exports = {
         `
 
         var payload1 = await sails.sendNativeQuery(query1, [today]);
-        console.log(payload1)
-       
+        // console.log(payload1)
+
+        //Here we find all memberships
+        var query2 = `
+        SELECT *
+        FROM membership
+        `
+        var payload2 = await sails.sendNativeQuery(query2, [today]);
+        // console.log(payload1)
 
         // Here we select the current user who is loggedIn and has a membership
 
@@ -38,20 +45,25 @@ module.exports = {
         var payload3 = await sails.sendNativeQuery(query3, [userId]);
         // console.log(payload3.rows);
 
-        // Here we use a VIEW with the same query as above. To use a VIEW we need to have models - migrate:'safe' otherwise it will break 
+        // Here we select all active locations
 
-        //  var query3 = ` 
-        //     SELECT * FROM test_view;
-        //  `
-        //  var payload = await sails.sendNativeQuery(query3, []);
+        var query4 = `
+        SELECT *
+        FROM location
+        `
+
+        var payload4 = await sails.sendNativeQuery(query4, []);
+
         let data1 = JSON.stringify(payload1)
+        let data2 = JSON.stringify(payload2)
         let data3 = JSON.stringify(payload3)
+        let data4 = JSON.stringify(payload4)
 
         // debug mode
         // sails.log(data)
         // console.log(this.req.user_id)
 
         
-        return { data1: data1, data3: data3}
+        return { data1: data1, data2: data2, data3: data3, data4: data4}
     }
 }

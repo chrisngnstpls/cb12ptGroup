@@ -176,9 +176,11 @@ module.exports = {
 
             }
             
+            
 
             return this.res.view('pages/account/detailsuser', {
                                                             data:method,
+                                                            address:details.address,
                                                             sessionsLeft:sessionsLeft, 
                                                             address:details.address, 
                                                             bio:details.bio, 

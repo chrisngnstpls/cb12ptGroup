@@ -43,6 +43,7 @@ module.exports = {
         
         /*
         Uncomment for debugging purposes 
+        
         console.log(inputs.email)
         console.log(hashedPass)
         console.log('User exists? : ' + checkExisting)
@@ -56,14 +57,7 @@ module.exports = {
                 //res.view('pages/account/successTemp', {data:'Created Trainer'});
                 return res.successAction('Trainer created.', {where:'inside signup'},'/login')
                 //console.log('created trainer')
-            } if(inputs.fname=='Admin'){
-                var user = await User.create({firstName:inputs.fname,lastName:inputs.lname, password:hashedPass, email:inputs.email, money:'0'}).fetch()
-                var userDetails = await UserDetails.create({address:inputs.address, userId:user.id, isCustomer:true, isAdmin:true, isTrainer:false})
-                //res.view('pages/account/successTemp', {data:'Created Trainer'});
-                return res.successAction('Admin created.', {where:'inside signup'},'/login')
-                //console.log('created trainer')
-            }  
-            else {
+            } else {
                 var user = await User.create({firstName:inputs.fname,lastName:inputs.lname, password:hashedPass, email:inputs.email, money:'0'}).fetch()
                 var userDetails = await UserDetails.create({address:inputs.address, userId:user.id, isCustomer:true, isAdmin:false, isTrainer:false})
                 //console.log('created customer')

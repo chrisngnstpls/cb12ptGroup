@@ -1,0 +1,111 @@
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+    body {
+        /* background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4) ) */
+        /* url('https://i.ibb.co/vYSnxCX/i-Stock-1191744336.jpg')*/
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), url('images/iStock-1191744336.jpg');
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        position: relative;
+    }
+
+
+    .navbar-custom {
+        background-color: black;
+        height: 8rem;
+        font-family: 'Russo One', sans-serif;
+    }
+
+    .logincontainer {
+        padding-top: 80px;
+    }
+
+    .form-login {
+        max-width: 480px;
+        height: 480px;
+        margin: auto;
+        background-color: white;
+        padding: 15px 40px 50px;
+        border: 0.2rem solid #e5e5e5;
+        border-radius: 10px;
+    }
+
+    input[type='email'] {
+        border-radius: 0.5rem;
+    }
+
+    input[type='password'] {
+        border-radius: 0.5rem;
+    }
+
+    input[type="submit"]:hover {
+        background: #0165b6;
+    }
+
+    .errorText {
+        color: red;
+        font-size: 90%;
+    }
+</style>
+<!-- header -->
+<header id="header">
+    <nav class="navbar navbar-expand-lg navbar-custom ">
+        <div class="container-fluid">
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-3">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/trainers">Trainers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/memberships">Memberships</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="m-3 text-right">
+                <img src="/images/user.png" alt="user" width="30rem">
+            </div>
+            <div class="m-3 text-right text-white">
+                <a href="/login" class="nav-link text-white">Log in</a>
+            </div>
+            <div class="m-3 text-right text-white"></div>
+            <a href="/signup" class="nav-link text-white"> Sign up</a>
+        </div>
+        </div>
+    </nav>
+</header>
+
+<!--end of header  -->
+<div class="logincontainer">
+    <div class="text-center mt-5">
+        <form action="" method="POST" class="form-login" name="loginForm">
+            <img src="" alt="">
+            <h1 class="mt-4 h1 mb-4 font-weight-dark login-title"> Sign in</h1>
+            <label for="email" class="sr-only">Email address</label>
+            <input type="text" name="email" id="email" class="form-control mb-3" placeholder="Email address" autofocus>
+            <!-- <div class="errorText" id="emailError"></div> -->
+
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" name="password" id="password" class="form-control mb-3" placeholder="password">
+            <div class="errorText" id="pswdError"></div>
+
+            <div class="mt-5">
+                <button type="submit" value="Login" class="btn btn-lg btn-primary btn-block">Sign in</button>
+            </div>
+        </form>
+    </div>
+</div>

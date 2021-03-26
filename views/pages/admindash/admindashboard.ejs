@@ -31,14 +31,6 @@
         background-color: #fff;
     }
 
-    .table {
-        padding-top: 20px;
-        padding: 5px 10px;
-        border: 1px double #000;
-        background-color: #eee;
-        width: 80%;
-    }
-
     span {
         padding: 0 8px;
     }
@@ -89,13 +81,33 @@
 
     .megawrap {
         margin: 0 auto;
-        padding: 30px;
+        padding: 40px 0;
         width: 80%;
         border: 1px solid #000;
+    }
+
+    .blk {
+        background-color: black;
+    }
+
+    .loc {
+        padding-top: 20px;
+    }
+
+    .membsection {
+        padding-bottom: 20px;
+    }
+
+    .locationsection {
+        padding: 20px 0;
     }
 </style>
 <div class="megawrap">
     <h1>Admin Dashboard</h1>
+    <!-- Button trigger modal -->
+    <a href="/"><button type="button" class="btn btn-outline-primary">
+            Go to homepage
+        </button></a>
     <div class="container1">
         <h4>Select a query! You do not have to fill in all fields to get the result.</h4>
         <!-- start of form -->
@@ -124,7 +136,7 @@
                 </select>
             </div>
             <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-1">Submit</button>
+                <button type="submit" class="btn btn-primary mb-1 blk">Submit</button>
             </div>
         </form>
         <br>
@@ -148,52 +160,110 @@
             </div>
 
             <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-1">Submit</button>
+                <button type="submit" class="btn btn-primary mb-1 blk">Submit</button>
             </div>
         </form>
+        <!-- end of form -->
+        <br><br>
+        <!-- Current Memberships section -->
+        <div class="membsection">
+            <h2>Current memberships</h2>
+            <h4>Select a membership to edit the details. The name of the membership will not be edited.</h4>
+            <div class="table-responsive thead-light">
+                <table class="table table-hover">
+                    <thead class="">
+                        <tr>
+                            <th scope="col">Membership ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Sessions</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Offer</th>
+                        </tr>
+                    </thead>
+                    <% var editUrl="edit" ; %>
+                        <% var elements=JSON.parse(data2) %>
+                            <% for(let i=0; i < elements.rows.length; i++) { %>
+                                <% var myEdit="/membership/" + editUrl + "/" + elements.rows[i].id %>
+                                    <tbody class="table-striped">
+                                        <tr>
+                                            <th scope="row">
+                                                <%= elements.rows[i].id %>
+                                            </th>
+                                            <td>
+                                                <%= elements.rows[i].name %> %>
+                                            </td>
+                                            <td>
+                                                <%= elements.rows[i].typeCount %>
+                                            </td>
+                                            <td>
+                                                <%= elements.rows[i].description %>
+                                            </td>
+                                            <td>
+                                                <%= elements.rows[i].isOffer %>
+                                            </td>
+                                            <td>
+                                                <a href="<%= myEdit %>">
+                                                    <button class="btn btn-warning" type="submit">
+                                                        Edit
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <% } %>
+                </table>
+                <a href="/newmembership"><button type="button" class="btn btn-primary blk">
+                        Create Membership
+                    </button></a>
+            </div>
+        </div>
+        <!-- End of Current Memberships section -->
 
+        <!-- add Location section -->
+        <div class="locationsection">
+            <h2>Current locations</h2>
+            <h4>Select which locations you want to add and which ones you need to delete.</h4>
+            <div class="table-responsive thead-light loc">
+                <table class="table table-hover">
+                    <thead class="">
+                        <tr>
+                            <th scope="col">Location ID</th>
+                            <th scope="col">Location Name</th>
 
-    </div>
-    <!-- end of form -->
-    <br><br>
-    <br><br>
-    press button to move on
+                        </tr>
+                    </thead>
+                    <% var deleteUrl="delete" ; %>
+                        <% var elements=JSON.parse(data4) %>
+                            <% for(let i=0; i < elements.rows.length; i++) { %>
+                                <% var myDelete="/locations/" + deleteUrl + "/" + elements.rows[i].id %>
 
-
-    <!-- Modal Section -->
-
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Go to homepage
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Visit Homepage
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    You are about to visit the homepage!
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <a href="/"> <button type="button" class="btn btn-primary">Yes take me there</button></a>
+                                    <tbody class="table-striped">
+                                        <tr>
+                                            <th scope="row">
+                                                <%= elements.rows[i].id %>
+                                            </th>
+                                            <td>
+                                                <%= elements.rows[i].location %> %>
+                                            </td>
+                                            <td>
+                                                <a href="<%= myDelete %>">
+                                                    <button class="btn btn-danger" type="submit">
+                                                        Delete
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <% } %>
+                </table>
+                <div class="pt-5">
+                    <a href="/addlocation"><button type="button" class="btn btn-primary blk">
+                            Add Location
+                        </button></a>
                 </div>
             </div>
         </div>
+        <!-- end of add Location section -->
     </div>
-
-    <br><br>
-
-    <!-- End of Modal Section -->
-
-
 
 </div>

@@ -65,6 +65,15 @@ module.exports = async function(req, res, proceed) {
             errorLog.error = 'Trainer Unavailable or you have already booked that date.'
         }
     }
+    let locations = await Location.find({})
+
+    let _locations = [];
+    // console.log(locations);
+    for (let location in locations){
+        let row = await locations[location]
+       
+        _locations.push(row);
+    }   
 
     if(sessionsLeft == 0){
         errorLog.error = 'You have no more sessions left for booking!'
@@ -80,9 +89,10 @@ module.exports = async function(req, res, proceed) {
         errorLog.error = "You need to choose a valid date" 
     }
     if (req.session.user)
+    
     if(Object.keys(errorLog).length>0) {
-            return res.view('pages/account/trainerpage', {errorList:errorLog, bookedTrainings: "", trainerObject : {trainerFirstName, trainerLastName, trainerBio, trainerImage}})
-            }
+        return res.view('pages/account/trainerpage', {errorList:errorLog, bookedTrainings: "", trainingLocations: _locations, trainerObject : {trainerFirstName, trainerLastName, trainerBio, trainerImage}})
+        }
 
     return proceed();
 

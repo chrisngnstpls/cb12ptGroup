@@ -26,8 +26,8 @@ module.exports = {
     fn: async function({usertype, userprop, userprop2, startDate, endDate}) {
         let list = [];
 
-        console.log(startDate);
-        console.log(endDate)
+        // console.log(startDate);
+        // console.log(endDate)
 
         if(usertype == "" && userprop == "" && userprop2 == "") {
         //    return this.res.BadCombo("Input fields are empty. Please fill in to proceed!")
@@ -202,7 +202,7 @@ module.exports = {
 
         var payload1 = await sails.sendNativeQuery(queryDate, [0, startDate, endDate]);
         let data1 = await JSON.stringify(payload1);
-        console.log(data1)
+        // console.log(data1)
         return this.res.view('pages/admindash/resultlists2', {data1: data1, startDate:startDate, endDate: endDate })
         // let data = await JSON.stringify(payload);
         //  console.log(data)

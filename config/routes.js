@@ -31,17 +31,19 @@ module.exports.routes = {
 
   // membership creation from admin
   'GET /newmembership': {action: 'membership/createmembership'}, 
-  'POST /newmembership': {action: 'membership/createmembership2'}, 
+  'POST /newmembership': {action: 'membership/createmembership2'},
+  'GET /membership/edit/:id': {action: 'membership/editmembership'},
+  'POST /membership/update': {action: 'membership/updatemembership'}, 
 
   // membership purchase from customer
   '/memberships/special/:hash' : {action : 'dev/populatememberships'},
   'GET /memberships': {action: 'dev/populatememberships'},
-  //'POST /memberships': {action: 'membership/getmembership'},
   'POST /memberships': {action: 'membership/getmembership'},  
 
   // special offer membership 
-  //'GET /specialmembership': {action: 'dev/getspecialmembership'},
-  'POST /memberships/special/:hash': {action: 'membership/getspecialmembership'},
+
+  'POST /memberships/special/:hash': {action: 'membership/getmembership'},
+
 
 
   // select trainer section
@@ -51,6 +53,8 @@ module.exports.routes = {
 
   //delete a training
   'GET /trainings/cancel/:id': {action: 'account/deletetraining'},
+    // delete a location
+  'GET /locations/delete/:id': {action: 'admindash/deletelocation'},
   // customer/trainer personal page info
   '/detailsuser' : {action :'account/detailsuser'},
   //wallet services
@@ -62,6 +66,8 @@ module.exports.routes = {
   // admin user dashboard
   'GET /users/list': {action: 'admindash/userlist'},
   'POST /users/list': {action: 'admindash/userlist2'},
+  'GET /addlocation': {action: 'admindash/addlocation'}, 
+  'POST /addlocation': {action: 'admindash/addlocation2'},
 
 
   
