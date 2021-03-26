@@ -52,13 +52,13 @@ module.exports = {
         // Begin by checking if a user with the input email exists. If not continue with the record
         if(!checkExisting){
             if(inputs.fname=='Trainer'){
-                var user = await User.create({firstName:inputs.fname,lastName:inputs.lname, password:hashedPass, email:inputs.email, money:'10'}).fetch()
+                var user = await User.create({firstName:inputs.fname,lastName:inputs.lname, password:hashedPass, email:inputs.email, money:'0'}).fetch()
                 var userDetails = await UserDetails.create({address:inputs.address, userId:user.id, isCustomer:true, isAdmin:false, isTrainer:true})
                 //res.view('pages/account/successTemp', {data:'Created Trainer'});
                 return res.successAction('Trainer created.', {where:'inside signup'},'/login')
                 //console.log('created trainer')
             } else {
-                var user = await User.create({firstName:inputs.fname,lastName:inputs.lname, password:hashedPass, email:inputs.email, money:'10'}).fetch()
+                var user = await User.create({firstName:inputs.fname,lastName:inputs.lname, password:hashedPass, email:inputs.email, money:'0'}).fetch()
                 var userDetails = await UserDetails.create({address:inputs.address, userId:user.id, isCustomer:true, isAdmin:false, isTrainer:false})
                 //console.log('created customer')
                 // res.view('pages/account/successTemp', {data:'Created Customer'});

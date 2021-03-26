@@ -20,8 +20,9 @@ module.exports = {
         let res = this.res;
         let req = this.req;
 
+
         let _membership = new MembershipType( name, typeCount, description, isOffer);
-        console.log("123" + _membership.isoffer)
+
 
         var membership = await Membership.create({
             name: _membership.name,

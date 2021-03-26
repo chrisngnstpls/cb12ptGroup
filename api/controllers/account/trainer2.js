@@ -63,6 +63,8 @@ module.exports = {
             customerId:_booking.customerId,
             
         })
+        session.user.trainingsBooked = session.user.trainingsBooked + 1
+        console.log('booked a training, new user object : ', session.user)
         
         //return {data:'new training created', trainerObject : ""}
         return this.res.successAction(`Success! new training created at ${_booking.startDate}`, {where:'inside trainer2'},'/detailsuser')

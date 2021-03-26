@@ -14,6 +14,7 @@ const trainingCheck = require("../api/policies/trainingCheck");
 const membershipAccess = require("../api/policies/membershipAccess");
 const membershipCheck = require("../api/policies/membershipCheck");
 const specialMembershipCheck = require("../api/policies/specialMembershipCheck");
+const membershipForm = require("../api/policies/membershipForm");
 
 module.exports.policies = {
 
@@ -26,11 +27,14 @@ module.exports.policies = {
 
   'account/signup2':formCheck,
   'account/detailsuser':isLoggedIn,
+  'account/userwallet': isLoggedIn,
   'account/trainer': ['isloggedIn', 'membershipCheck'],
   'account/trainer2':trainingCheck,
   'membership/getmembership': membershipAccess,
   'dev/getspecialmembership': isLoggedIn,
-  'membership/getspecialmembership': specialMembershipCheck
+  'membership/getspecialmembership': membershipAccess,
+  // 'membership/getspecialmembership': specialMembershipCheck,
+  'membership/createmembership2': membershipForm,
   
 };
 

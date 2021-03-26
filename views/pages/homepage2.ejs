@@ -2,6 +2,13 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+<script type="text/javascript">
+    function setEligible(){
+        let req = this.req
+        req.session.user.offerEligible == true;
+    }
+</script>
+
 <link rel="stylesheet" href="homecss.css">
 
 <style>
@@ -161,6 +168,7 @@
 </style>
 
 <body>
+    
     <!-- header -->
     <header id="header">
         <nav class="navbar navbar-expand-lg navbar-custom ">
@@ -367,13 +375,14 @@
             </section>
             <!-- end of trainer section -->
 
-            <% if(req.session.user && req.session.user.hasActiveMembership && req.session.user.membershipName=='Bronze'
-                ) { %>
+            <!-- (req.session.user && req.session.user.hasActiveMembership && req.session.user.membershipName=='Bronze'
+            ) -->
+            <% if (req.session.user && req.session.user.eligibleForOffer) { %>
                 <!-- special offer banner -->
                 <section id="team" class="py-5">
                     <div class="container">
                         <div class="row">
-                            <a href="/specialmembership"><img src="images/specialOffer.jpeg" class="img-fluid"
+                            <a href="memberships/special/<%=req.session.user.hash%>" ><img src="images/specialOffer.jpeg" class="img-fluid"
                                     alt="special offer"></a>
                         </div>
                     </div>
@@ -432,6 +441,8 @@
                     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
                         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
                         crossorigin="anonymous"></script>
+                        
+                    
 </body>
 
 </html>

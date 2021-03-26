@@ -23,7 +23,6 @@ module.exports = async function(req, res, proceed,next) {
      * i'm leaving it here and you can complete the routing to the correct pages. 
      * 
     */
-   
 
     let currentUser = req.session.user;
     console.log('inside membershipAccess', currentUser)
@@ -33,13 +32,7 @@ module.exports = async function(req, res, proceed,next) {
         return res.redirect('/signup')
     } 
     
-    if(req.session.user.balance < req.body.price){
-        console.log('insufficient balance!')
-        return res.permissions(`Please add funds to purchase ${req.body.name}.`,{where:'membership update policy'},'/wallet')
-
-    }
-
-    if((!req.session.user.hasActiveMembership) && (req.session.user.balance >= req.body.price)){
+    if(!req.session.user.hasActiveMembership){
         console.log('user exists but no membership')
 
         return proceed();
@@ -51,14 +44,12 @@ module.exports = async function(req, res, proceed,next) {
     
 
 
-    if((req.session.user.hasActiveMembership)&& (req.session.user.balance >= req.body.price)){
+    if(req.session.user.hasActiveMembership){
         console.log('user exists, is active, updating with new membership')
         await utils.updateMembership(req,next)
-        await utils.fundManagement('subtract', req,res)
         return res.successAction(`Membership upgraded to ${req.body.name}!`, {where:'membership update policy'},'/detailsuser')
         //return res.view('pages/account/successTemp', {data:`You have upgraded to membership ${req.body.name}`})
     }
-    
     //begin edit:::
     // if(req.session.user.hasActiveMembership && req.session.user.membershipName == eligibleForOffers.membershipName){
     //     console.log('user exists, is active, and has a bronze membership, updating to special offer')

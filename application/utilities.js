@@ -5,7 +5,34 @@
  const sharp = require('sharp')
  const _dateFormat = require('dateformat')
  const fs = require('fs')
+ const tree = require('treeify')
+ const config = require('./config')
+const { util } = require('grunt')
 
+
+ function debugPrint(params){
+    try{
+        console.log('\n')
+        if(arguments.length > 0){
+            for(let arg in arguments){
+                if(typeof(arguments[arg])=='object'){
+                    console.log('\n',tree.asTree(arguments[arg], true))
+                } else {
+                    process.stdout.write(arguments[arg])
+                }
+            }
+        } else {
+            let err = new Error(' you need more than one arguments')
+            throw err
+        }
+    }
+    catch(err){
+        console.log(err)
+    }
+    finally{
+        console.log('\n')
+    }
+};
  //Function to check subscription validity 
  
  function validSubscription(now,compare){
@@ -60,7 +87,7 @@
             fs.renameSync(renamefile, originalfile)
         })
         return message = await Promise.resolve('Is OKE')
-}
+};
 
 async function constructUserModel(user,details){
     let userModel = {
@@ -75,19 +102,21 @@ async function constructUserModel(user,details){
 
     }
     return model = await Promise.resolve(userModel)
-}
+};
 
 async function updateMembership(req,res,next){
-    
+    let eligibleForOffer = config.eligibleForOffers;
     const NewUserMembership = require('../classes/newuserMembership');
     console.log('Now updating membership.')
+    
     let id = await req.body.id;
     let startDate = await req.body.startDate;
     let price = await req.body.price;
     let isCancelled = await req.body.isCancelled;
     let userId = await req.session.user.id;
     let membershipId = await req.body.id;
-   
+    let remainingSessions;
+
     /**
      * updated with Class corrections 
      */
@@ -96,8 +125,15 @@ async function updateMembership(req,res,next){
     console.log('Updating with :' ,_newMembership);
     let newEndDate = new Date();
     newEndDate = formatDate(newEndDate)
-    let updatedMembership  = await UserMembership.updateOne({id:req.session.user.lastMembershipId}).set({isCancelled:1, endDate:newEndDate})
     
+    if(!req.session.user.hasActiveMembership){
+        console.log('User has no active membership. Subscribing to ',req.body.name)
+    }else {
+        console.log('User has active membership. Cancelling previous...')
+        remainingSessions = calculateSessions(req,res)
+        let updatedMembership  = await UserMembership.updateOne({id:req.session.user.lastMembershipId})
+            .set({isCancelled:1, endDate:newEndDate})
+    }
     var newUserMembership = await UserMembership.create({
         startDate: _newMembership.startDate,
         endDate: _newMembership.endDate,
@@ -112,16 +148,143 @@ async function updateMembership(req,res,next){
     req.session.user.lastMembershipId = await newUserMembership.id
     req.session.user.hasActiveMembership = await isActive
     req.session.user.dueDays = await days
-    req.session.user.membershipName =  req.body.name
+    req.session.user.membershipName =  await req.body.name
     req.session.membershipEndDate = await newUserMembership.endDate
-
+    
+    if(req.session.user.membershipName == eligibleForOffer.membershipName){
+        req.session.user.eligibleForOffer = true
+    } else {
+        req.session.user.eligibleForOffer = false
+    }
+    
     return message = await Promise.resolve('Updated OK.')
+};
+
+
+async function fundManagement(action,req,res){
+    let currentBalance = parseInt(req.session.user.balance)
+    // let fundsToHandle = parseInt(req.body.funds)
+    let fundsToHandle
+    let totalFunds;
+    let walletStatus;
+    let message;
+    
+    if(!req.body.price){
+        fundsToHandle = 0
+    } else {
+        fundsToHandle = parseInt(req.body.price)
+    }
+
+    try {
+
+        if ((action=='add') && (fundsToHandle >= 0)){
+            
+            totalFunds = await parseInt(Math.abs(currentBalance + fundsToHandle))
+            let newFunds = await User.updateOne({id:req.session.user.id}).set({money:totalFunds})
+            if(newFunds){
+                console.log(newFunds)
+                req.session.user.balance = await newFunds.money
+                walletStatus = 1
+                message = 'Funds added!'
+            } else {
+                console.log('error adding funds')
+                walletStatus = 0
+            }
+
+            
+        } else if((action=='subtract')&&(fundsToHandle >= 0)){
+            
+            if (fundsToHandle > currentBalance){
+                walletStatus = 0
+                message = 'Insufficient balance!'
+            
+            } else if(fundsToHandle == currentBalance){
+                totalFunds = 0
+                let newFunds = await User.updateOne({id:req.session.user.id}).set({money:totalFunds});
+                
+                if(newFunds){
+                    console.log(newFunds)
+                    req.session.user.balance = await newFunds.money
+                    walletStatus = 1
+                    message = 'Payment success! Wallet empty :('
+                } else {
+                    walletStatus = 0
+                    message = 'something went wrong'
+                }
+
+
+            } else {
+                totalFunds = parseInt(currentBalance - fundsToHandle)
+                let newFunds = await User.updateOne({id:req.session.user.id}).set({money:totalFunds});
+                
+                if(newFunds){
+                    console.log(newFunds)
+                    req.session.user.balance = await newFunds.money
+                    walletStatus = 1
+                    message = 'payment successful!'
+                } else {
+                    console.log('error during payment')
+                    walletStatus = 0
+                }
+
+                
+            }
+        } else if(!action){
+            walletStatus = 0
+            message = 'Please provide "add" or "subtract" when calling'
+        }
+    }
+    catch(err){
+        console.log(err)
+    }
+    return await Promise.resolve([walletStatus,message])
+};
+
+async function calculateSessions(req,res){
+    let totalTrainings;
+    
+    if(req.session.user.hasActiveMembership){
+        let membership = await Membership.findOne({name:req.session.user.membershipName})
+        totalTrainings = await membership.typeCount
+    } else {
+        totalTrainings = 0
+    }
+    
+    
+    let message = 'beep';
+    let trainingsLeft;
+    console.log('inside utilities and calculating total trainigns:',totalTrainings)
+    try {
+        if(totalTrainings == 0){
+            console.log('User has no membership. Setting total trainings to 0')
+            message = 'User has no membership.'
+            trainingsLeft = await totalTrainings
+            
+        } else {
+            if(!req.session.user.trainingsBooked){
+                trainingsLeft = await totalTrainings
+            } else {
+                trainingsLeft = (parseInt(totalTrainings) - parseInt(req.session.user.trainingsBooked))
+            }
+            
+
+        }
+    }
+    catch(err){
+        console.log(err)
+    }
+    return await Promise.resolve(trainingsLeft)
 }
- 
- module.exports = {  validSub : validSubscription,
+
+
+ module.exports = {  
+                     _print:debugPrint,
+                     validSub : validSubscription,
                      formatDate : formatDate,
                      nameFormat: nameEntry,
                      imgResize : mkProfile,
                      userModel : constructUserModel,
-                     updateMembership : updateMembership
+                     updateMembership : updateMembership,
+                     fundManagement : fundManagement,
+                     calculateSessions:calculateSessions
                  }

@@ -34,12 +34,14 @@ module.exports.routes = {
   'POST /newmembership': {action: 'membership/createmembership2'}, 
 
   // membership purchase from customer
+  '/memberships/special/:hash' : {action : 'dev/populatememberships'},
   'GET /memberships': {action: 'dev/populatememberships'},
-  'POST /memberships': {action: 'membership/getmembership'}, 
+  //'POST /memberships': {action: 'membership/getmembership'},
+  'POST /memberships': {action: 'membership/getmembership'},  
 
   // special offer membership 
-  'GET /specialmembership': {action: 'dev/getspecialmembership'},
-  'POST /specialmembership': {action: 'membership/getspecialmembership'},
+  //'GET /specialmembership': {action: 'dev/getspecialmembership'},
+  'POST /memberships/special/:hash': {action: 'membership/getspecialmembership'},
 
 
   // select trainer section
@@ -51,6 +53,8 @@ module.exports.routes = {
   'GET /trainings/cancel/:id': {action: 'account/deletetraining'},
   // customer/trainer personal page info
   '/detailsuser' : {action :'account/detailsuser'},
+  //wallet services
+  '/wallet' : {action:'account/userwallet'},
 
   // logout section
   'POST /goodbye' : {action : 'account/logout'},
@@ -58,6 +62,7 @@ module.exports.routes = {
   // admin user dashboard
   'GET /users/list': {action: 'admindash/userlist'},
   'POST /users/list': {action: 'admindash/userlist2'},
+
 
   
   

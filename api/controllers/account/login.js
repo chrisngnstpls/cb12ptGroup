@@ -1,23 +1,29 @@
 const bcrypt = require('bcryptjs');
 const utilities = require('../../../application/utilities')
-
+const tools = require('../../../application/tools')
+const _print = utilities._print
+const crypto = require('crypto-random-string');
+const config = require('../../../application/config')
 
 module.exports = {
     inputs:{
         email:{type:'string'},
         password:{type:'string'}
     },
-    // exits : {
-    //     success: {
-    //         viewTemplatePath:'account/controlpanel'
-    //     }
-    // },
 
     fn:async function(inputs) {
-        console.log(this.req.session);
+        _print(this.req.session)
+        //console.log(this.req.session);
         let session = this.req.session;
         let user;
         let goOnMr;
+
+        // let eligibleForOffers = {
+        //     membershipName :'Bronze',
+        //     daysDue : 365
+        // }
+        let eligibleForOffers = config.eligibleForOffers
+        console.log('Eligible for offers : ', eligibleForOffers)
         // error check inputs 
         
         if (inputs.email && inputs.password) {
@@ -40,7 +46,7 @@ module.exports = {
             user = await User.findOne({email:inputs.email}) // error check 
 
             if(!user){
-                console.log('User not found');
+                _print('User not found');
                 // return this.res.view('pages/unauthorized', {data:'not found'})
                 return this.res.permissions('There was an error with your data', {when:'inside login'},'/login')
             
@@ -49,25 +55,21 @@ module.exports = {
                 let userDetails = await UserDetails.findOne({userId:user.id})
                 if(this.req.method == 'POST' && user) {
                     let match = await bcrypt.compare(inputs.password, user.password)
-                    console.log(`db pass ${user.password}, form pass ${inputs.password}` )
+                    //console.log(`db pass ${user.password}, form pass ${inputs.password}` )
+                    _print(`db pass ${user.password}, form pass ${inputs.password}` )
                     
                     if (match) {
-                        /*lines below obsolete after session user model implementation */
-                        // this.req.session.user_email = user.email;
-                        // this.req.session.user_id = user.id;
-                        // this.req.session.isAdmin = userDetails.isAdmin;
-                        // this.req.session.isTrainer = userDetails.isTrainer;
-                        // this.req.session.isCustomer = userDetails.isCustomer;
-                        // console.log('set session email @ : ' + this.req.session.user_email + 'and user id : ' + this.req.session.user_id);
-                        // /*end obsoleteness*/
+
                         const todayIs = new Date();
                         let _userModel = utilities.userModel(user,userDetails);
                         const results = await UserMembership.find({userId:user.id});
+
                         session.user = await _userModel;
                         session.user.logTime = todayIs;
+                        session.user.hash = crypto({length:10})
                         if (results.length < 1){ // case where user was never a customer (has never bought a subscription)
                             this.req.session.user.hasActiveMembership = false
-                            console.log('user has no membership record. set to : ' + session.user.hasActiveMembership)
+                            _print('user has no membership record. set to : ' + session.user.hasActiveMembership)
                             
                         } else {
                             let checkSub = utilities.validSub;
@@ -95,7 +97,7 @@ module.exports = {
                                 this.req.session.user.hasActiveMembership = true;
                                 this.req.session.user.dueDays = days;
                                 
-                                
+
                                 let query = `
                                 SELECT m.name 
                                 FROM membership m
@@ -105,27 +107,41 @@ module.exports = {
                                 ON u.id = um.userId
                                 WHERE u.id = $1
                                 `
-                                
+                                let bookedTrainings = await tools.calculateTrainings(user.id,this.req,this.res)
                                 var _membershipName = await sails.sendNativeQuery(query, [user.id]);
                                 let allMemberships = _membershipName.rows;
                                 let membershipName = allMemberships.pop();
                                 this.req.session.user.membershipName = membershipName.name;
                                 this.req.session.user.membershipStartDate = _lastStartDate;
                                 this.req.session.user.membershipEndDate = lastDate;
-                                console.log('user has membership : ' +  this.req.session.user.hasActiveMembership )
-                            
+
+                                if(this.req.session.user.membershipName == eligibleForOffers.membershipName){
+                                    this.req.session.user.eligibleForOffer = true
+
+                                } else {
+                                    this.req.session.user.eligibleForOffer = false
+                                }
+                               _print('user has membership : ' +  this.req.session.user.hasActiveMembership )
+                               console.log('user eligible for offer : ', this.req.session.user.eligibleForOffer)
+                               
+                        
+                               if(bookedTrainings){
+                                   session.user.trainingsBooked = await parseInt(bookedTrainings)
+                               } else {
+                                   session.user.trainingsBooked = 0
+                               }
                             
                             } else { // case where the user has a subscription but has expired and it's been expired for X days
                                 this.req.session.user.hasActiveMembership = false
                                 this.req.session.user.daysDue = days
                             }
-                            console.log('Login complete user object: ',  this.req.session.user)
+                            _print('Login complete user object: ',  this.req.session.user)
                         }
                     
                         
                         
                         
-                        console.log(_userModel)
+                        _print(_userModel)
                         return this.res.redirect('/');
                     } else {
                         this.res.statusCode = 403

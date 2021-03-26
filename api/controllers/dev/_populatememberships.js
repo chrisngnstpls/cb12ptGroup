@@ -1,18 +1,19 @@
-const SpecialM = require('../../../classes/membershipType2');
-//const SpecialM = require('../../../classes/specialMembership');
+const MView = require('../../../classes/membershipType2');
+//const membershipForm = require('../../policies/membershipForm');
 
 
 module.exports = {
-    fn: async function() {
-
+    fn: async function({hash}) {
+        let res = this.res
+        let req = this.req
         let payload = [];
+
 
         let membershipList = await Membership.find({
             // id: [1, 2, 3] 
-            where: {isOffer: 'true'}
+            where: {isOffer: 'false'}
         });
-
-
+        console.log(membershipList[0])
 
         for(let membership in membershipList) {
             
@@ -26,12 +27,11 @@ module.exports = {
             }  else {
                 membershipList[membership].price = 600
             }
-
-
+            
+            
             // And then we prepare our class Object to serve to the view through the data attribute
             console.log(membershipList[membership].isOffer)
-
-                let memDetails = new SpecialM(
+            let memDetails = new MView(
                 await membershipList[membership].id,
                 await membershipList[membership].name,
                 await membershipList[membership].typeCount,
@@ -42,9 +42,9 @@ module.exports = {
             // console.log(memDetails.price)
         
             payload.push(memDetails)
+        }
 
-         }
-         this.res.view('pages/membership/specialmembership', {data: payload}) 
-            
+        this.res.view('pages/membership/memberships', {data: payload, title:'Our Memberships'})
+        // return {}
     }
 }

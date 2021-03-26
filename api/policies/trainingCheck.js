@@ -13,7 +13,9 @@
 
 
 */
-    
+
+let utils = require('../../application/utilities')
+
 module.exports = async function(req, res, proceed) {
     console.log('inside policy trainingCheck')
     let startDate = new Date(req.body.startDate);
@@ -50,6 +52,7 @@ module.exports = async function(req, res, proceed) {
             }
         }
     allTrainings = await whatUser()
+    let sessionsLeft = await utils.calculateSessions(req,res)
     //console.log(allTrainings)
     
     //console.log(startDate, location, trainerId, customerId,endDate)
@@ -63,7 +66,9 @@ module.exports = async function(req, res, proceed) {
         }
     }
 
-    
+    if(sessionsLeft == 0){
+        errorLog.error = 'You have no more sessions left for booking!'
+    }
 
     if(startDate == "" || location == "") {
         errorLog.error = "Please fill in all fields"
@@ -71,9 +76,10 @@ module.exports = async function(req, res, proceed) {
     if(trainerId == customerId) {
         errorLog.error = "Sorry you cannot book with yourself!"
     } 
-    // if(startDate < isToday) {
-    //     errorLog.error = "You need to choose a valid date" 
-    // }
+    if(startDate < isToday) {
+        errorLog.error = "You need to choose a valid date" 
+    }
+    if (req.session.user)
     if(Object.keys(errorLog).length>0) {
             return res.view('pages/account/trainerpage', {errorList:errorLog, bookedTrainings: "", trainerObject : {trainerFirstName, trainerLastName, trainerBio, trainerImage}})
             }

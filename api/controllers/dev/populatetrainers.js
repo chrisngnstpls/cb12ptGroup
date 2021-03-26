@@ -23,6 +23,7 @@ module.exports = {
         });
         //console.log(trainerList)
         //var locations = await imageLocation.split(GETlocalPath)
+        
         var GETlocalPath = require('path').resolve(sails.config.appPath, 'assets')
         for (let trainer in trainerList){       // <- begin iteration loop
             let trainerDetails = await User.findOne({id:trainerList[trainer].userId}) 

@@ -5,6 +5,7 @@ module.exports = async function(req, res, proceed,next) {
 
     let currentUser = req.session.user;
     console.log('inside membershipAccess', currentUser)
+    
     if(!req.session.user){
         console.log('user does not exist redirecting to signup')
         return res.redirect('/signup')

@@ -113,6 +113,7 @@ module.exports = {
             let trainingPayloadFuture = [];
             let trainingPayloadPast = [];
             let fullurl;
+            let sessionsLeft;
             console.log('GET method : ' + method)
             console.log('user model : ', session.user)
             var user = await User.findOne({email:req.session.user.email})
@@ -133,33 +134,36 @@ module.exports = {
              * should be done frontside. (ex : if (current date < trainings[training].startDate) return future)
              */
             
-            if(isTrainer>0){
+            if(isTrainer){
                 console.log('Trainer ID : ' + user_id)
                 var trainings = await Training.find({trainerId:user_id, isCancelled:0})
                 for (let training in trainings){
-                    //console.log('searching for CUSTOMER ID: ' + trainings[training].customerId)
+                    
                     let searchFor = trainings[training].customerId
                     let _customer = await User.find({where : {id:searchFor}}).limit(1)
-                    //console.log('customer : ' + _customer[0].id)
+
                     let row = new _Trainings(_customer[0].email, _customer[0].firstName, _customer[0].lastName,trainings[training].startDate,trainings[training].endDate,trainings[training].location,trainings[training].id)
-                    //console.log('printing training details class : ' + Object.values(row))
+
                     let today = new Date()
                     let trainingDate = new Date(row.startDate)
-
+                    sessionsLeft = session.user.trainingsBooked;
                     if(trainingDate > today){
                         trainingPayloadFuture.push(row)
                     } else if (trainingDate < today){
                         trainingPayloadPast.push(row)
                     }
                 }
-            } else if (isTrainer == 0){
+            } else if (!isTrainer){
                 var userTrainings = await Training.find({customerId:user_id, isCancelled:0})
+                sessionsLeft = await utils.calculateSessions(req,res)
                 for (training in userTrainings){
                     let searchFor = userTrainings[training].trainerId
                     let _trainer = await User.find({where : {id:searchFor}}).limit(1);
                     let row = new _Trainings(_trainer[0].email, _trainer[0].firstName, _trainer[0].lastName, userTrainings[training].startDate, userTrainings[training].endDate, userTrainings[training].location,userTrainings[training].id)
                     console.log('printing training details class : ' + Object.values(row))
-                    //console.log('printing training details class : ' + Object.values(row))
+
+                    
+
                     let today = new Date()
                     let trainingDate = new Date(row.startDate)
 
@@ -173,7 +177,9 @@ module.exports = {
             }
             
 
-            return this.res.view('pages/account/detailsuser', {data:method, 
+            return this.res.view('pages/account/detailsuser', {
+                                                            data:method,
+                                                            sessionsLeft:sessionsLeft, 
                                                             address:details.address, 
                                                             bio:details.bio, 
                                                             birthDate:details.birthDate, 
@@ -185,7 +191,8 @@ module.exports = {
                                                             lastName: lname,
                                                             balance: session.user.balance,
                                                             membershipName : session.user.membershipName, 
-                                                            email: email})
+                                                            email: email
+                                                        })
         } else {
             console.log('no post or get. current method : ' + method)
         }
