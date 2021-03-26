@@ -20,7 +20,7 @@ module.exports = {
         if(method == 'POST'){
             console.log('inside post wallet')
             const [walletStatus,message] = await funds('add',req,res)
-            console.log(walletStatus, message)
+            //console.log(walletStatus, message)
             if(walletStatus){
                 res.successAction(`${message} : ${session.user.balance}`, {where:'wallet POST'},'/detailsuser')
             }else if(!walletStatus){

@@ -33,8 +33,8 @@ const { util } = require('grunt')
         console.log('\n')
     }
 };
+
  //Function to check subscription validity 
- 
  function validSubscription(now,compare){
      let _date1 = new Date(now)
      let _date2 = new Date(compare)
@@ -48,14 +48,13 @@ const { util } = require('grunt')
          return [false,diffDays]
      }    
  };
- 
- 
+
  function formatDate(date){
      let newDate = new Date(date)
      let _date = _dateFormat(newDate,"yyyy-mm-dd HH:MM")
      return _date
  };
- 
+
  // Function to return Capitalized Names
  function nameEntry(name) {
      var splitStr = name.toLowerCase().split(' ');
@@ -88,7 +87,8 @@ const { util } = require('grunt')
         })
         return message = await Promise.resolve('Is OKE')
 };
-// Function to build a session user model skeleton
+
+// Function to build a session user model boilerplate
 async function constructUserModel(user,details){
     let userModel = {
         email : await user.email,
@@ -103,6 +103,7 @@ async function constructUserModel(user,details){
     }
     return model = await Promise.resolve(userModel)
 };
+
 // Function to update/create membership
 async function updateMembership(req,res,next){
     let eligibleForOffer = config.eligibleForOffers;
@@ -182,7 +183,7 @@ async function fundManagement(action,req,res){
             totalFunds = await parseInt(Math.abs(currentBalance + fundsToHandle))
             let newFunds = await User.updateOne({id:req.session.user.id}).set({money:totalFunds})
             if(newFunds){
-                console.log(newFunds)
+                //console.log(newFunds)
                 req.session.user.balance = await newFunds.money
                 walletStatus = 1
                 message = 'Funds added!'
@@ -203,7 +204,7 @@ async function fundManagement(action,req,res){
                 let newFunds = await User.updateOne({id:req.session.user.id}).set({money:totalFunds});
                 
                 if(newFunds){
-                    console.log(newFunds)
+                    //console.log(newFunds)
                     req.session.user.balance = await newFunds.money
                     walletStatus = 1
                     message = 'Payment success! Wallet empty :('
@@ -218,7 +219,7 @@ async function fundManagement(action,req,res){
                 let newFunds = await User.updateOne({id:req.session.user.id}).set({money:totalFunds});
                 
                 if(newFunds){
-                    console.log(newFunds)
+                    //console.log(newFunds)
                     req.session.user.balance = await newFunds.money
                     walletStatus = 1
                     message = 'payment successful!'
@@ -275,8 +276,7 @@ async function calculateSessions(req,res){
         console.log(err)
     }
     return await Promise.resolve(trainingsLeft)
-}
-
+};
 
  module.exports = {  
                      _print:debugPrint,

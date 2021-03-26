@@ -14,7 +14,8 @@ module.exports = {
          } else {
             this.req.session.user.trainingsBooked = this.req.session.user.trainingsBooked - 1
          }
-         console.log('deleted a training, new user object : ', this.req.session.user)
+
+         //console.log('deleted a training, new user object : ', this.req.session.user)
          if(deletedTraining){
             return this.res.successAction('Training deleted.', {where:'inside delete training'},'/detailsuser')
          } else {

@@ -2,7 +2,6 @@ module.exports = async function(req, res, proceed) {
 
     let membName = req.body.name;
     let membCount = req.body.typeCount;
-    //let description = req.body.description;
     let offer = req.body.isOffer;
 
     if((!membName)||(!membCount)){

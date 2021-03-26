@@ -1,8 +1,7 @@
 
 module.exports = async function(req, res, proceed) {
     if(req.session.user) {
-        console.log(req.session.user)
-        // const currentUserId = req.session.user
+        //console.log(req.session.user)
  
     if(req.session.user && req.session.user.hasActiveMembership) {
         return proceed()

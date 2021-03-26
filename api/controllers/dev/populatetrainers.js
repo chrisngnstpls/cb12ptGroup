@@ -2,11 +2,6 @@ const TView = require('../../../classes/trainerFull');
 
 module.exports = {
     
-    // exits: {
-    //     success: {
-    //         viewTemplatePath: 'pages/account/trainersall' // view account/signup.ejs
-    //     }
-    // },
 
     fn: async function() {
 
@@ -22,12 +17,10 @@ module.exports = {
             where :{isTrainer:1}        // first query to iterate through
         });
         //console.log(trainerList)
-        //var locations = await imageLocation.split(GETlocalPath)
         
         var GETlocalPath = require('path').resolve(sails.config.appPath, 'assets')
         for (let trainer in trainerList){       // <- begin iteration loop
             let trainerDetails = await User.findOne({id:trainerList[trainer].userId}) 
-            //let imageLoc = 
 
             //console.log(trainerDetails)
             let _localTrainer =new TView(
@@ -41,7 +34,7 @@ module.exports = {
                     await trainerList[trainer].bio
                                                 );
             payload.push(_localTrainer) // and push it to the empty array
-            console.log(_localTrainer._imageLocation)
+            //console.log(_localTrainer._imageLocation)
         }
 
         

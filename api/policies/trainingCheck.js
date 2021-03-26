@@ -58,7 +58,7 @@ module.exports = async function(req, res, proceed) {
     //console.log(startDate, location, trainerId, customerId,endDate)
     //console.log('logging all trainings', allTrainings)
     for (let _training in allTrainings){
-        console.log(req.body.startDate,',', allTrainings[_training])
+        //console.log(req.body.startDate,',', allTrainings[_training])
         if(req.body.startDate == allTrainings[_training].startDate){
             console.log(req.body.startDate,',', allTrainings[_training].startDate)
             console.log('conflict in dates booking')

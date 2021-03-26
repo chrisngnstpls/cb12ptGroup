@@ -12,7 +12,7 @@ module.exports = {
         let session = this.req.session
         let payload = [];
         let eligible
-        console.log('Params : ', req.params)
+        //console.log('Params : ', req.params)
         let membershipList = await Membership.find({
         });
 
@@ -22,7 +22,7 @@ module.exports = {
             eligible = true
         }
 
-        console.log('eligible loop before : ' , eligible)
+        //console.log('eligible loop before : ' , eligible)
         if(eligible){
             for(let membership in membershipList) {
                 if(membershipList[membership].isOffer == true){
@@ -71,7 +71,7 @@ module.exports = {
                         membershipList[membership].price = 600
                     }
                     
-                    console.log(membershipList[membership].isOffer)
+                    //console.log(membershipList[membership].isOffer)
                     let memDetails = new MView(
                         await membershipList[membership].id,
                         await membershipList[membership].name,

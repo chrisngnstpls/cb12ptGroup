@@ -72,7 +72,7 @@ module.exports = {
                 
                 if (_.isEmpty(uploadedFiles)) {
 
-                    console.log('empty field', someOldImage)
+                    //console.log('empty field', someOldImage)
                     await UserDetails.updateOne({userId:postUser.id}).set({bio:bio, address:address, birthDate:bdate})
                 } else{
                     await UserDetails.updateOne({userId:postUser.id}).set({bio:bio, address:address, birthDate:bdate, image:imageLocation})
@@ -113,8 +113,8 @@ module.exports = {
             let trainingPayloadPast = [];
             let fullurl;
             let sessionsLeft;
-            console.log('GET method : ' + method)
-            console.log('user model : ', session.user)
+            // console.log('GET method : ' + method)
+            // console.log('user model : ', session.user)
             var user = await User.findOne({email:req.session.user.email})
             var user_id = await user.id
             var fname = await user.firstName
@@ -159,7 +159,7 @@ module.exports = {
                     let searchFor = userTrainings[training].trainerId
                     let _trainer = await User.find({where : {id:searchFor}}).limit(1);
                     let row = new _Trainings(_trainer[0].email, _trainer[0].firstName, _trainer[0].lastName, userTrainings[training].startDate, userTrainings[training].endDate, userTrainings[training].location,userTrainings[training].id)
-                    console.log('printing training details class : ' + Object.values(row))
+                    //console.log('printing training details class : ' + Object.values(row))
 
                     
 

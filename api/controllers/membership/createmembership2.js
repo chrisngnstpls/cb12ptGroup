@@ -32,7 +32,7 @@ module.exports = {
             // price: _membership.price
         }).fetch()
 
-        console.log(membership)
+        //console.log(membership)
 
         // <-- debug mode -->
         // console.log(_membership)

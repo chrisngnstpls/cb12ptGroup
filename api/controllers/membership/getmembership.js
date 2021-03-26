@@ -33,8 +33,8 @@ module.exports = {
         let res = this.res;
         let req = this.req;    
         let session = this.req.session;
-        console.log(session.user_id);
-        console.log(req.body);
+        //console.log(session.user_id);
+        //console.log(req.body);
         await utils.updateMembership(req,res)
         await utils.fundManagement('subtract', req,res)
         await utils.calculateSessions(req,res)
@@ -78,6 +78,5 @@ module.exports = {
 
 
         return res.successAction('Membership created!', {where:'new membership'},'/trainers')
-        //return {data: "Success!!! New membership created!"}
     }
 }
