@@ -67,7 +67,5 @@ On your computer :
 
 * Enjoy!
 
-# Login Notes. 
-* All existing users have the password Ark0ud@
-* Admin user : lakis@gmail.com / Pass : Ark0ud@
+
 
