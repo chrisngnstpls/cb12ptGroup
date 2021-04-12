@@ -132,6 +132,5 @@ lib-cov
 *.out
 *.pid
 
-/config/datastores.js
 /assets/images/RoniZamponid31f2.jpg
 node_modules
