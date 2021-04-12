@@ -7,6 +7,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
+<style>
+    .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 80vh;
+        width: 800px;
+        height: 500px;
+    }
+ 
+</style>
 
 <div id="results" class="container">
     <h1>List of Users</h1>
@@ -60,8 +71,93 @@
                     </tbody>
                     <% } %>
         </table>
+     
+
     </div>
     <a href="/users/list">
         <button class="btn btn-primary">Go Back</button></a>
 
+
 </div>
+<div class="wrapper container-fluid">
+    <canvas id="myChart" ></canvas>
+</div>
+<div class="wrapper container-fluid">
+<canvas id="myChart2" ></canvas>
+</div>
+
+
+
+<script>
+    <% if(chart != "") { %>
+    let subName = <%- JSON.stringify(Object.keys(chart)) %>;
+    let subCount = <%- JSON.stringify(Object.values(chart)) %>;
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: subName,
+            datasets: [{
+                label: 'Volume',
+                data: subCount,
+                color: ['red', 'blue', 'cyan', 'orange'],
+                borderColor: ['blue', 'red', 'cyan', 'orange'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: true
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+
+            }
+
+        }
+    });
+    <% } %>
+    <% if(chart2 != "") { %>
+    let subName2 = <%- JSON.stringify(Object.keys(chart2)) %>;
+    let subCount2 = <%- JSON.stringify(Object.values(chart2)) %>;
+    var ctx = document.getElementById('myChart2').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: subName2,
+            datasets: [{
+        label: 'PieChart',
+        data: subCount2,
+        backgroundColor: [
+      'rgb(192,192,192)',
+      'rgb(107, 23, 216)',
+      'rgb(255, 205, 86)',
+      'rgb(205,127,50)'
+    ],
+    hoverOffset: 4
+  }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                display: true
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+
+            }
+
+        }
+    });
+    <% } %>
+  
+</script>
